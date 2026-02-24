@@ -2,7 +2,7 @@
 
 ## Overview
 
-Isaac Sim의 가장 기본적인 진입점. 두 가지 실행 모드(Standalone / Interactive)에서의 애플리케이션 라이프사이클을 보여준다. Standalone 모드에서는 `SimulationApp`의 생성-업데이트-종료 사이클을, Interactive 모드에서는 `BaseSample` 추상 클래스의 템플릿 메서드 패턴과 Extension 등록 메커니즘을 이해할 수 있다.
+Isaac Sim의 가장 기본적인 진입점. 두 가지 실행 모드(Standalone / Interactive)에서의 애플리케이션 라이프사이클을 보여줍니다. Standalone 모드에서는 `SimulationApp`의 생성-업데이트-종료 사이클을, Interactive 모드에서는 `BaseSample` 추상 클래스의 템플릿 메서드 패턴과 Extension 등록 메커니즘을 이해할 수 있습니다.
 
 ## Architecture
 
@@ -16,7 +16,7 @@ SimulationApp(config)
     └── kit.close()        ← 리소스 해제
 ```
 
-Standalone 스크립트는 `SimulationApp`을 직접 인스턴스화한다. `config` 딕셔너리로 headless 여부, 해상도 등을 지정하며, `update()` 호출마다 한 프레임이 진행된다. 물리 시뮬레이션 없이 순수하게 Kit 앱 라이프사이클만 동작한다.
+Standalone 스크립트는 `SimulationApp`을 직접 인스턴스화합니다. `config` 딕셔너리로 headless 여부, 해상도 등을 지정하며, `update()` 호출마다 한 프레임이 진행됩니다. 물리 시뮬레이션 없이 순수하게 Kit 앱 라이프사이클만 동작합니다.
 
 ### Interactive 실행 모델
 
@@ -41,7 +41,7 @@ Extension.on_startup()
                             └── setup_post_reset()
 ```
 
-Interactive 모드에서는 Extension 시스템이 예제를 Isaac Sim GUI의 브라우저에 등록한다. 사용자가 메뉴에서 예제를 선택하면 `BaseSample`의 라이프사이클이 시작된다.
+Interactive 모드에서는 Extension 시스템이 예제를 Isaac Sim GUI의 브라우저에 등록합니다. 사용자가 메뉴에서 예제를 선택하면 `BaseSample`의 라이프사이클이 시작됩니다.
 
 ## Source Files
 
@@ -67,7 +67,7 @@ for i in range(100):
 kit.close()            # GPU/메모리 리소스 해제
 ```
 
-`SimulationApp`은 Omniverse Kit 런타임의 Python wrapper다. `config` 딕셔너리의 `"headless": True`로 설정하면 GUI 없이 실행되어 서버 환경에서의 데이터 생성에 활용된다. `update()`는 blocking 호출이며, 반환 후 다음 프레임이 렌더링 가능한 상태가 된다.
+`SimulationApp`은 Omniverse Kit 런타임의 Python wrapper다. `config` 딕셔너리의 `"headless": True`로 설정하면 GUI 없이 실행되어 서버 환경에서의 데이터 생성에 활용됩니다. `update()`는 blocking 호출이며, 반환 후 다음 프레임이 렌더링 가능한 상태가 됩니다.
 
 ### Interactive: BaseSample 템플릿 메서드
 
@@ -78,7 +78,7 @@ class HelloWorld(BaseSample):
         world.scene.add_default_ground_plane()
 ```
 
-`BaseSample`은 Template Method 패턴을 구현한다. 서브클래스는 `setup_scene()`, `setup_post_load()`, `setup_pre_reset()`, `setup_post_reset()` 중 필요한 메서드만 오버라이드한다. `load_world_async()`가 전체 초기화 시퀀스를 조율하며, 이 메서드들을 정해진 순서로 호출한다.
+`BaseSample`은 Template Method 패턴을 구현합니다. 서브클래스는 `setup_scene()`, `setup_post_load()`, `setup_pre_reset()`, `setup_post_reset()` 중 필요한 메서드만 오버라이드합니다. `load_world_async()`가 전체 초기화 시퀀스를 조율하며, 이 메서드들을 정해진 순서로 호출합니다.
 
 `World` 객체의 기본 설정:
 - `physics_dt = 1/60` — 물리 시뮬레이션 타임스텝 (60Hz)
@@ -102,7 +102,7 @@ class HelloWorldExtension(omni.ext.IExt):
         )
 ```
 
-Extension의 `on_startup()`은 Isaac Sim이 해당 Extension을 로드할 때 호출된다. `get_browser_instance()`는 GUI의 Examples 브라우저 싱글턴을 반환하며, 여기에 등록된 예제는 메뉴에서 선택할 수 있게 된다.
+Extension의 `on_startup()`은 Isaac Sim이 해당 Extension을 로드할 때 호출됩니다. `get_browser_instance()`는 GUI의 Examples 브라우저 싱글턴을 반환하며, 여기에 등록된 예제는 메뉴에서 선택할 수 있게 됩니다.
 
 ## 실행 방법
 
@@ -131,7 +131,7 @@ cd ~/workspace/IsaacSim
 
 ### USD Stage 단위
 
-Isaac Sim은 USD(Universal Scene Description)를 씬 포맷으로 사용한다. `stage_units_in_meters=1.0`은 USD 스테이지의 1 단위가 1미터임을 의미한다. NVIDIA의 일부 에셋은 cm 단위(0.01)로 제작되었으므로, 에셋 로딩 시 단위 불일치에 주의해야 한다.
+Isaac Sim은 USD(Universal Scene Description)를 씬 포맷으로 사용합니다. `stage_units_in_meters=1.0`은 USD 스테이지의 1 단위가 1미터임을 의미합니다. NVIDIA의 일부 에셋은 cm 단위(0.01)로 제작되었으므로, 에셋 로딩 시 단위 불일치에 주의해야 합니다.
 
 ## Further Reading
 

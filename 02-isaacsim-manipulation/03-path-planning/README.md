@@ -2,7 +2,7 @@
 
 ## Overview
 
-Franka Emika Panda의 end-effector를 타겟 위치로 이동시키되, **RRT (Rapidly-exploring Random Tree)** 알고리즘으로 장애물을 회피하는 경로를 계획하는 데모. Follow Target(RMPflow)이 reactive하게 매 스텝 모션을 생성하는 것과 달리, RRT는 **plan-then-execute** 패턴으로 전체 경로를 먼저 계산한 후 순차적으로 실행한다.
+Franka Emika Panda의 end-effector를 타겟 위치로 이동시키되, **RRT (Rapidly-exploring Random Tree)** 알고리즘으로 장애물을 회피하는 경로를 계획하는 데모. Follow Target(RMPflow)이 reactive하게 매 스텝 모션을 생성하는 것과 달리, RRT는 **plan-then-execute** 패턴으로 전체 경로를 먼저 계산한 후 순차적으로 실행합니다.
 
 ## Architecture
 
@@ -69,7 +69,7 @@ rrt_config["robot_description_path"] = os.path.join(
 rrt = RRT(**rrt_config)
 ```
 
-**Conservative Collision Spheres**: 기본 Franka 충돌 모델 대신 반경이 확대된 충돌 구를 사용한다. 이는 RRT가 찾은 경로가 실제 실행 시 장애물과 충분한 안전 마진을 확보하도록 보장한다. 스플라인 보간 과정에서 경로가 약간 벗어날 수 있으므로, 이 보수적 접근이 필수적이다.
+**Conservative Collision Spheres**: 기본 Franka 충돌 모델 대신 반경이 확대된 충돌 구를 사용합니다. 이는 RRT가 찾은 경로가 실제 실행 시 장애물과 충분한 안전 마진을 확보하도록 보장합니다. 스플라인 보간 과정에서 경로가 약간 벗어날 수 있으므로, 이 보수적 접근이 필수적입니다.
 
 ### 웨이포인트 → 궤적 변환
 
@@ -83,7 +83,7 @@ def _convert_rrt_plan_to_trajectory(self, rrt_plan):
     return art_trajectory.get_action_sequence()
 ```
 
-RRT는 이론적으로 웨이포인트 간 **선형 보간만 보장**한다. 하지만 `LulaCSpaceTrajectoryGenerator`는 스플라인 기반 보간을 사용하므로, 웨이포인트가 충분히 조밀하지 않으면 스플라인이 장애물을 통과할 수 있다. `max_dist=0.01` 보간으로 이 문제를 완화한다.
+RRT는 이론적으로 웨이포인트 간 **선형 보간만 보장**합니다. 하지만 `LulaCSpaceTrajectoryGenerator`는 스플라인 기반 보간을 사용하므로, 웨이포인트가 충분히 조밀하지 않으면 스플라인이 장애물을 통과할 수 있습니다. `max_dist=0.01` 보간으로 이 문제를 완화합니다.
 
 ### Forward (Pre-computed Execution)
 
@@ -98,7 +98,7 @@ def forward(self, target_end_effector_position, target_end_effector_orientation=
     return self._action_sequence.pop(0) # 다음 action 꺼내서 반환
 ```
 
-Follow Target의 `forward()`가 매 스텝 새로운 action을 계산하는 것과 달리, 여기서는 사전 계산된 action 시퀀스를 순서대로 반환한다.
+Follow Target의 `forward()`가 매 스텝 새로운 action을 계산하는 것과 달리, 여기서는 사전 계산된 action 시퀀스를 순서대로 반환합니다.
 
 ### Custom PD Gains
 
@@ -110,7 +110,7 @@ def _on_follow_target_simulation_step(self, step_size):
     self._articulation_controller.apply_action(actions)
 ```
 
-경로 추종 정밀도를 위해 Task에서 제공하는 custom PD gains(stiffness, damping)를 설정한다. Jerk/Acceleration 리밋이 robot description에 포함되어 있어 궤적이 실제 관절 역학 내에서 추종 가능하다.
+경로 추종 정밀도를 위해 Task에서 제공하는 custom PD gains(stiffness, damping)를 설정합니다. Jerk/Acceleration 리밋이 robot description에 포함되어 있어 궤적이 실제 관절 역학 내에서 추종 가능합니다.
 
 ## 실행 방법
 

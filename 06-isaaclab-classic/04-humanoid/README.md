@@ -2,11 +2,11 @@
 
 ## Overview
 
-21-DOF 이족 보행 Humanoid 환경. Ant와 동일한 `LocomotionEnv` 베이스를 사용하지만, 관절 수가 21개로 증가하고 관절별 gear ratio가 다르며, 종료 조건이 더 엄격하다(torso 높이 0.8m vs Ant의 0.31m). 이족 보행의 균형 유지가 4족보다 근본적으로 어려우므로, reward 가중치와 학습 설정이 상응하게 조정되어 있다.
+21-DOF 이족 보행 Humanoid 환경. Ant와 동일한 `LocomotionEnv` 베이스를 사용하지만, 관절 수가 21개로 증가하고 관절별 gear ratio가 다르며, 종료 조건이 더 엄격하다(torso 높이 0.8m vs Ant의 0.31m). 이족 보행의 균형 유지가 4족보다 근본적으로 어려우므로, reward 가중치와 학습 설정이 상응하게 조정되어 있습니다.
 
 ## Architecture
 
-Ant와 동일한 `LocomotionEnv` 상속 구조를 따른다. 차이점은 Config 수준에서 발생한다.
+Ant와 동일한 `LocomotionEnv` 상속 구조를 따릅니다. 차이점은 Config 수준에서 발생합니다.
 
 ### Ant vs Humanoid 구조 비교
 
@@ -48,7 +48,7 @@ Ant와 동일한 `LocomotionEnv` 상속 구조를 따른다. 차이점은 Config
 [54:75]  actions (21D)
 ```
 
-**스케일링 차이**: Humanoid에서는 `angular_velocity × 0.25`, `dof_vel × 0.1`로 스케일링한다. 이는 이족 보행 시 각속도와 관절 속도의 절대값이 4족보다 크기 때문에, 정책 네트워크의 입력 범위를 적절히 조절하여 학습 안정성을 높이기 위함이다. Ant에서는 이러한 스케일링이 적용되지 않는다.
+**스케일링 차이**: Humanoid에서는 `angular_velocity × 0.25`, `dof_vel × 0.1`로 스케일링합니다. 이는 이족 보행 시 각속도와 관절 속도의 절대값이 4족보다 크기 때문에, 정책 네트워크의 입력 범위를 적절히 조절하여 학습 안정성을 높이기 위함입니다. Ant에서는 이러한 스케일링이 적용되지 않습니다.
 
 ### Reward 가중치 비교
 
@@ -59,7 +59,7 @@ Ant와 동일한 `LocomotionEnv` 상속 구조를 따른다. 차이점은 Config
 | energy | -0.05 | **-0.005** | 보행 자체가 많은 에너지를 소비하므로 완화 |
 | joint_limits | -0.1 | **-0.25** | 관절 제한 위반이 전복으로 직결 |
 
-`alive` 가중치가 0.5 → 2.0으로 4배 증가한 것은 이족 보행에서 넘어지지 않는 것 자체가 중요한 학습 목표임을 반영한다. 반면 `energy` 페널티는 0.05 → 0.005로 10배 감소했는데, 이족 보행은 본질적으로 에너지를 많이 소비하므로 에너지 페널티가 너무 크면 움직임 자체를 억제하게 된다.
+`alive` 가중치가 0.5 → 2.0으로 4배 증가한 것은 이족 보행에서 넘어지지 않는 것 자체가 중요한 학습 목표임을 반영합니다. 반면 `energy` 페널티는 0.05 → 0.005로 10배 감소했는데, 이족 보행은 본질적으로 에너지를 많이 소비하므로 에너지 페널티가 너무 크면 움직임 자체를 억제하게 됩니다.
 
 ### Joint Gear Ratios
 
@@ -79,7 +79,7 @@ joint_gears = [
 ]
 ```
 
-관절별 gear ratio는 해당 관절이 지탱하는 하중에 비례한다. Hip abduction(135)은 보행 중 측방 안정성을 담당하므로 가장 큰 토크가 필요하고, 팔꿈치/손목(22.5)은 보행에 직접 기여하지 않으므로 작은 토크면 충분하다.
+관절별 gear ratio는 해당 관절이 지탱하는 하중에 비례합니다. Hip abduction(135)은 보행 중 측방 안정성을 담당하므로 가장 큰 토크가 필요하고, 팔꿈치/손목(22.5)은 보행에 직접 기여하지 않으므로 작은 토크면 충분합니다.
 
 ### 로봇 에셋 — 관절별 PD 게인
 
@@ -101,7 +101,7 @@ actuators = {
 }
 ```
 
-**정규표현식 매칭**: `joint_names_expr`에 정규표현식을 사용하여 관절 그룹별로 게인을 설정한다. 허리(`abdomen`)의 stiffness가 20으로 가장 높은 것은 상체를 수직으로 유지하는 데 핵심적이기 때문이다.
+**정규표현식 매칭**: `joint_names_expr`에 정규표현식을 사용하여 관절 그룹별로 게인을 설정합니다. 허리(`abdomen`)의 stiffness가 20으로 가장 높은 것은 상체를 수직으로 유지하는 데 핵심적이기 때문입니다.
 
 ### 학습 하이퍼파라미터
 
@@ -113,7 +113,7 @@ actuators = {
 | Obs Normalization | False | **True** | 75D obs 범위 차이 보상 |
 | Value Loss Coef | 1.0 | **2.0** | Value function 정확도 향상 |
 
-**Observation Normalization**: Humanoid에서만 활성화된다. 75D observation의 각 차원이 매우 다른 범위를 가지므로(높이 ~1m, 관절속도 ~10rad/s, projection ~1.0), running mean/std로 정규화하여 학습 안정성을 높인다.
+**Observation Normalization**: Humanoid에서만 활성화됩니다. 75D observation의 각 차원이 매우 다른 범위를 가지므로(높이 ~1m, 관절속도 ~10rad/s, projection ~1.0), running mean/std로 정규화하여 학습 안정성을 높입니다.
 
 ## 실행 방법
 

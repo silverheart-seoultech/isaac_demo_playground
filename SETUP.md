@@ -36,7 +36,7 @@ nvcc --version
 python -c "import torch; print(f'CUDA: {torch.cuda.is_available()}, Device: {torch.cuda.get_device_name(0)}')"
 ```
 
-**주의**: 다른 프로세스에서 학습이 진행 중이면 `nvidia-smi`에서 GPU 메모리 사용량을 확인한다. Isaac Sim GUI는 최소 4GB VRAM을 사용하므로 여유 메모리가 부족하면 학습 프로세스와 충돌할 수 있다.
+**주의**: 다른 프로세스에서 학습이 진행 중이면 `nvidia-smi`에서 GPU 메모리 사용량을 확인합니다. Isaac Sim GUI는 최소 4GB VRAM을 사용하므로 여유 메모리가 부족하면 학습 프로세스와 충돌할 수 있습니다.
 
 ## 3. Isaac Sim 설치 확인
 
@@ -164,13 +164,13 @@ cd ~/workspace/IsaacLab
 RuntimeError: CUDA out of memory
 ```
 
-- `--num_envs`를 줄인다 (4096 → 256 → 16)
+- `--num_envs`를 줄입니다 (4096 → 256 → 16)
 - `nvidia-smi`로 다른 프로세스의 GPU 사용량 확인
 - 다른 학습이 돌고 있으면 그것이 끝난 후 실행
 
 ### Isaac Sim GUI가 느리게 로딩됨
 
-초기 실행 시 Nucleus에서 에셋을 다운로드하므로 첫 실행이 오래 걸릴 수 있다. 두 번째 실행부터는 캐시된 에셋을 사용하므로 빨라진다.
+초기 실행 시 Nucleus에서 에셋을 다운로드하므로 첫 실행이 오래 걸릴 수 있습니다. 두 번째 실행부터는 캐시된 에셋을 사용하므로 빨라집니다.
 
 ### Extension이 로딩되지 않음
 
@@ -179,7 +179,7 @@ RuntimeError: CUDA out of memory
 ./isaac-sim.sh --enable isaacsim.examples.interactive --enable isaacsim.robot.policy.examples
 ```
 
-Extension Manager (Window > Extensions)에서 해당 Extension이 활성화되어 있는지 확인한다.
+Extension Manager (Window > Extensions)에서 해당 Extension이 활성화되어 있는지 확인합니다.
 
 ### Isaac Lab 태스크를 찾을 수 없음
 
@@ -204,13 +204,13 @@ export DISPLAY=:0
 
 ## 7. MCP 서버 설정 (선택)
 
-이 레포지토리는 MCP(Model Context Protocol) 서버를 통해 AI 도구와 연동할 수 있다.
+이 레포지토리는 MCP(Model Context Protocol) 서버를 통해 AI 도구와 연동할 수 있습니다.
 
 ### Isaac Sim MCP
-Isaac Sim이 실행 중일 때 `isaac.sim.mcp_extension` Extension을 활성화하면 localhost:8766에서 MCP 서버가 동작한다. Python 코드 실행, 씬 오브젝트 생성, 3D 모델 검색 등이 가능하다.
+Isaac Sim이 실행 중일 때 `isaac.sim.mcp_extension` Extension을 활성화하면 localhost:8766에서 MCP 서버가 동작합니다. Python 코드 실행, 씬 오브젝트 생성, 3D 모델 검색 등이 가능합니다.
 
 ### ROS MCP
-ROSBridge를 통해 ROS 토픽/서비스와 연동한다. `uvx ros-mcp --transport=stdio`로 실행.
+ROSBridge를 통해 ROS 토픽/서비스와 연동합니다. `uvx ros-mcp --transport=stdio`로 실행.
 
 ### Notion MCP
 코드 분석 결과를 Notion 페이지로 자동 발행할 때 사용. `OPENAPI_MCP_HEADERS` 환경변수에 Notion API 토큰 설정 필요.

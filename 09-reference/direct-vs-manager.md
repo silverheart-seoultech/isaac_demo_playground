@@ -2,12 +2,12 @@
 
 ## 개요
 
-Isaac Lab은 RL 환경을 정의하는 두 가지 패러다임을 제공한다:
+Isaac Lab은 RL 환경을 정의하는 두 가지 패러다임을 제공합니다:
 
 - **Direct**: 단일 클래스에서 `_get_observations()`, `_get_rewards()`, `_get_dones()`, `_reset_idx()`를 명시적으로 구현
 - **Manager-Based**: 선언적 `Cfg` 클래스에서 `ObservationManager`, `RewardManager`, `TerminationManager` 등에 MDP 요소를 위임
 
-CartPole이 두 패러다임으로 모두 구현되어 있어, 동일한 환경을 다른 방식으로 설계하는 비교가 가능하다.
+CartPole이 두 패러다임으로 모두 구현되어 있어, 동일한 환경을 다른 방식으로 설계하는 비교가 가능합니다.
 
 ## 구조 비교
 
@@ -166,7 +166,7 @@ def _apply_action(self):
 class ActionsCfg:
     joint_effort = JointEffortActionCfg(asset_name="robot", joint_names=["slider_to_cart"], scale=100.0)
 ```
-`JointEffortActionCfg`가 자동으로 action → effort 변환을 처리. `JointPositionActionCfg`, `DifferentialInverseKinematicsActionCfg` 등으로 교체하면 동일 환경에서 다른 action space를 사용할 수 있다.
+`JointEffortActionCfg`가 자동으로 action → effort 변환을 처리. `JointPositionActionCfg`, `DifferentialInverseKinematicsActionCfg` 등으로 교체하면 동일 환경에서 다른 action space를 사용할 수 있습니다.
 
 ### Reset 처리
 
@@ -211,9 +211,9 @@ class EventCfg:
 
 ### 실제 사용 패턴
 
-Isaac Lab의 공식 환경은 대부분 **Manager-Based**로 구현되어 있다. 특히 locomotion과 manipulation 환경은 `velocity_env_cfg.py` 같은 공통 base config를 상속하여 로봇별로 최소한의 수정만 적용하는 패턴이 주류다.
+Isaac Lab의 공식 환경은 대부분 **Manager-Based**로 구현되어 있습니다. 특히 locomotion과 manipulation 환경은 `velocity_env_cfg.py` 같은 공통 base config를 상속하여 로봇별로 최소한의 수정만 적용하는 패턴이 주류입니다.
 
-Direct 환경은 CartPole, Ant, Humanoid 같은 **고전 제어 환경**에서 주로 사용되며, 단순한 환경에서 오버헤드 없이 빠르게 구현할 때 적합하다.
+Direct 환경은 CartPole, Ant, Humanoid 같은 **고전 제어 환경**에서 주로 사용되며, 단순한 환경에서 오버헤드 없이 빠르게 구현할 때 적합합니다.
 
 ## 코드량 비교 (CartPole 기준)
 

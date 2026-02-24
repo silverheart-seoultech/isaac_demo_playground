@@ -2,9 +2,9 @@
 
 ## Overview
 
-Shadow Dexterous Hand로 큐브를 손 안에서 목표 orientation으로 회전시키는 in-hand manipulation 환경. Isaac Lab 전체에서 가장 복잡한 Direct RL 환경 중 하나로, 157D observation, 20D action, 광범위한 domain randomization을 특징으로 한다.
+Shadow Dexterous Hand로 큐브를 손 안에서 목표 orientation으로 회전시키는 in-hand manipulation 환경. Isaac Lab 전체에서 가장 복잡한 Direct RL 환경 중 하나로, 157D observation, 20D action, 광범위한 domain randomization을 특징으로 합니다.
 
-Direct RL 패러다임으로 구현되어 있으며, OpenAI 스타일의 asymmetric observation variant도 제공한다. Domain randomization의 범위와 세밀도에서 sim-to-real transfer를 위한 RL 환경 설계의 최전선을 보여준다.
+Direct RL 패러다임으로 구현되어 있으며, OpenAI 스타일의 asymmetric observation variant도 제공합니다. Domain randomization의 범위와 세밀도에서 sim-to-real transfer를 위한 RL 환경 설계의 최전선을 보여줍니다.
 
 ## Architecture
 
@@ -34,7 +34,7 @@ DirectRLEnv
 | `full` | 157 | 0 | 모든 정보 단일 observation |
 | `openai` | 42 | 187 | Asymmetric: 정책은 42D, critic은 187D |
 
-OpenAI mode는 실제 로봇에서 얻을 수 있는 정보만 policy에 제공하고, 시뮬레이션에서만 얻을 수 있는 정보(물체의 정확한 상태 등)는 critic에게만 제공하는 asymmetric actor-critic 구조다.
+OpenAI mode는 실제 로봇에서 얻을 수 있는 정보만 policy에 제공하고, 시뮬레이션에서만 얻을 수 있는 정보(물체의 정확한 상태 등)는 critic에게만 제공하는 asymmetric actor-critic 구조입니다.
 
 ## Source Files
 
@@ -50,7 +50,7 @@ OpenAI mode는 실제 로봇에서 얻을 수 있는 정보만 policy에 제공�
 
 ### Observation Space (157D Full Mode)
 
-Full mode의 157D observation은 아래 요소들로 구성된다:
+Full mode의 157D observation은 아래 요소들로 구성됩니다:
 
 | Component | 차원 | 설명 |
 |---|---|---|
@@ -70,7 +70,7 @@ Full mode의 157D observation은 아래 요소들로 구성된다:
 | Force/torque (5 fingers) | 30 | 5 fingers × 6D wrench |
 | 물체 힘/토크 | 6 | 물체에 작용하는 wrench |
 
-이 정보량은 Franka Reach(~34D)의 약 5배다. Dexterous manipulation은 손가락 간 협응, 접촉력 제어, 물체 상태 추정이 모두 필요하므로 관측 공간이 크다.
+이 정보량은 Franka Reach(~34D)의 약 5배입니다. Dexterous manipulation은 손가락 간 협응, 접촉력 제어, 물체 상태 추정이 모두 필요하므로 관측 공간이 큽니다.
 
 ### Action Space (20D)
 
@@ -85,7 +85,7 @@ actuated_joint_names = [
 ]
 ```
 
-총 24 DOF 중 20개가 actuated. 나머지 4개(FFJ0, MFJ0, RFJ0, LFJ0)는 tendon coupling으로 인접 관절에 종속된다. 엄지가 5 DOF로 가장 자유도가 높은데, 이는 in-hand manipulation에서 엄지가 핵심 역할을 하기 때문이다.
+총 24 DOF 중 20개가 actuated. 나머지 4개(FFJ0, MFJ0, RFJ0, LFJ0)는 tendon coupling으로 인접 관절에 종속됩니다. 엄지가 5 DOF로 가장 자유도가 높은데, 이는 in-hand manipulation에서 엄지가 핵심 역할을 하기 때문입니다.
 
 ### Reward Structure
 
@@ -109,7 +109,7 @@ success_tolerance = 0.1        # 목표 도달 판정 (rad)
 | action_penalty | -0.0002 | 과도한 관절 움직임 억제 |
 | fall_penalty | 0 / -50 | OpenAI mode에서만 활성 |
 
-**reach_goal_bonus(250)**가 다른 모든 reward를 압도하는 sparse reward다. 정책은 연속적인 rotation tracking + distance penalty로 점진적으로 학습하다가, 목표 도달 시 큰 bonus를 받아 성공 행동을 강화한다.
+**reach_goal_bonus(250)**가 다른 모든 reward를 압도하는 sparse reward다. 정책은 연속적인 rotation tracking + distance penalty로 점진적으로 학습하다가, 목표 도달 시 큰 bonus를 받아 성공 행동을 강화합니다.
 
 ### Domain Randomization — 가장 광범위한 설정
 
@@ -141,9 +141,9 @@ reset_gravity:              z축 ±0.4 gaussian, 36초 간격    # 중력 변동
 | 물체 질량 | Uniform | 0.5~1.5× | Reset |
 | 중력 | Gaussian | z축 ±0.4 | 36초 간격 |
 
-**Log-uniform 분포**: 관절 강성과 감쇠에 log-uniform을 사용하는 이유는 물리 파라미터가 로그 스케일에서 더 균일하게 분포하기 때문이다. 예를 들어, 강성이 1→2로 바뀌는 것과 0.5→1로 바뀌는 것은 동역학에 동일한 영향을 미친다.
+**Log-uniform 분포**: 관절 강성과 감쇠에 log-uniform을 사용하는 이유는 물리 파라미터가 로그 스케일에서 더 균일하게 분포하기 때문입니다. 예를 들어, 강성이 1→2로 바뀌는 것과 0.5→1로 바뀌는 것은 동역학에 동일한 영향을 미칩니다.
 
-**min_step_count_between_reset=720**: 랜덤화가 720 물리 스텝(= 약 3초)마다만 적용되어, 한 에피소드 내에서 급격한 파라미터 변화를 방지한다.
+**min_step_count_between_reset=720**: 랜덤화가 720 물리 스텝(= 약 3초)마다만 적용되어, 한 에피소드 내에서 급격한 파라미터 변화를 방지합니다.
 
 ### OpenAI Variant — Asymmetric Actor-Critic
 
@@ -181,7 +181,7 @@ OpenAI variant는 sim-to-real을 위한 설정이다:
 | `episode_length_s` | 10.0 s | 8.0 s |
 | `num_envs` | **8192** | 8192 |
 
-OpenAI variant는 더 낮은 제어 주파수(20Hz)를 사용한다. 실제 로봇의 센서 업데이트 주기에 맞추기 위함이다. 환경 수가 8192로 locomotion(4096)의 2배인 것은 dexterous manipulation의 높은 variance를 줄이기 위한 것이다.
+OpenAI variant는 더 낮은 제어 주파수(20Hz)를 사용합니다. 실제 로봇의 센서 업데이트 주기에 맞추기 위함입니다. 환경 수가 8192로 locomotion(4096)의 2배인 것은 dexterous manipulation의 높은 variance를 줄이기 위한 것입니다.
 
 ## 실행 방법
 
@@ -211,9 +211,9 @@ cd ~/workspace/IsaacLab
 
 ### 학습 시 주의사항
 
-- Shadow Hand는 GPU 메모리를 많이 사용한다. 8192 환경 기준 약 8GB+ VRAM 필요.
+- Shadow Hand는 GPU 메모리를 많이 사용합니다. 8192 환경 기준 약 8GB+ VRAM 필요.
 - Full mode는 비교적 빠르게 수렴(~5000 iter), OpenAI mode는 noise/asymmetric obs 때문에 더 오래 걸림(~10000 iter).
-- RL Games의 PPO 구현이 이 환경에서 RSL-RL보다 안정적인 경향이 있다.
+- RL Games의 PPO 구현이 이 환경에서 RSL-RL보다 안정적인 경향이 있습니다.
 
 ## Comparison: Franka Reach/Lift vs Shadow Hand
 
@@ -227,7 +227,7 @@ cd ~/workspace/IsaacLab
 | **Num Envs** | 4096 | 4096 | **8192** |
 | **학습 복잡도** | 낮음 (~1000 iter) | 중간 | **높음 (~10000 iter)** |
 
-Shadow Hand가 Direct RL인 이유: 157D observation, 20D action, 복잡한 reward 로직, 광범위한 domain randomization을 Manager-Based의 선언적 config로 표현하기 어렵다. Direct 방식이 이런 복잡한 환경에서 더 직관적이고 유연하다.
+Shadow Hand가 Direct RL인 이유: 157D observation, 20D action, 복잡한 reward 로직, 광범위한 domain randomization을 Manager-Based의 선언적 config로 표현하기 어렵습니다. Direct 방식이 이런 복잡한 환경에서 더 직관적이고 유연합니다.
 
 ## Further Reading
 

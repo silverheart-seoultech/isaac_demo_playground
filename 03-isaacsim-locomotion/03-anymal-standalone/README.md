@@ -4,10 +4,10 @@
 
 ANYbotics ANYmal C 사족보행 로봇의 학습된 보행 정책을 **Standalone 스크립트**로 배포하는 데모. Spot/H1과 동일한 `PolicyController` 프레임워크를 사용하지만, 두 가지 핵심적인 차이가 있다:
 
-1. **Effort (Torque) Control**: Spot/H1의 position control과 달리, 정책 출력을 LSTM 기반 actuator network가 토크로 변환하여 관절에 직접 적용한다.
-2. **Standalone 실행**: GUI Extension이 아닌 독립 Python 스크립트로 실행된다. `SimulationApp` → `World` → 물리 루프를 직접 구성한다.
+1. **Effort (Torque) Control**: Spot/H1의 position control과 달리, 정책 출력을 LSTM 기반 actuator network가 토크로 변환하여 관절에 직접 적용합니다.
+2. **Standalone 실행**: GUI Extension이 아닌 독립 Python 스크립트로 실행됩니다. `SimulationApp` → `World` → 물리 루프를 직접 구성합니다.
 
-Warehouse 환경에서 ANYmal이 보행하며, 키보드로 실시간 제어할 수 있다.
+Warehouse 환경에서 ANYmal이 보행하며, 키보드로 실시간 제어할 수 있습니다.
 
 ## Architecture
 
@@ -85,7 +85,7 @@ anymal_standalone.py
 
 ### LSTM SEA Actuator Network
 
-ANYmal의 가장 중요한 차별점은 **actuator network**이다. Spot/H1은 정책 출력을 바로 관절 위치 명령으로 변환하지만, ANYmal은 정책 출력을 **LSTM 기반 Series Elastic Actuator(SEA) 네트워크**가 토크로 변환한다.
+ANYmal의 가장 중요한 차별점은 **actuator network**입니다. Spot/H1은 정책 출력을 바로 관절 위치 명령으로 변환하지만, ANYmal은 정책 출력을 **LSTM 기반 Series Elastic Actuator(SEA) 네트워크**가 토크로 변환합니다.
 
 ```python
 class LstmSeaNetwork:
@@ -113,7 +113,7 @@ class LstmSeaNetwork:
         return torques.detach().clip(-80.0, 80.0).numpy(), ...
 ```
 
-**SEA (Series Elastic Actuator)**: ANYmal의 실제 하드웨어는 관절에 탄성 요소(spring)가 직렬로 연결된 SEA를 사용한다. 이 탄성 요소의 비선형 특성을 정확히 모델링하기 위해 학습된 LSTM 네트워크를 actuator model로 사용한다.
+**SEA (Series Elastic Actuator)**: ANYmal의 실제 하드웨어는 관절에 탄성 요소(spring)가 직렬로 연결된 SEA를 사용합니다. 이 탄성 요소의 비선형 특성을 정확히 모델링하기 위해 학습된 LSTM 네트워크를 actuator model로 사용합니다.
 
 **네트워크 구조**:
 - 입력: (위치 오차, 관절 속도) — 각 관절 독립, 2D
@@ -121,7 +121,7 @@ class LstmSeaNetwork:
 - 출력: 토크 ([-80, 80] Nm 클리핑)
 - 상태: hidden/cell state가 매 스텝 유지되어 시간적 맥락을 반영
 
-**왜 LSTM인가**: 탄성 요소의 변형 이력이 현재 토크에 영향을 미치므로, memoryless MLP보다 시간 의존성을 포착하는 LSTM이 적합하다. 관절 속도의 클리핑(±20 rad/s)은 비현실적인 입력을 방지한다.
+**왜 LSTM인가**: 탄성 요소의 변형 이력이 현재 토크에 영향을 미치므로, memoryless MLP보다 시간 의존성을 포착하는 LSTM이 적합합니다. 관절 속도의 클리핑(±20 rad/s)은 비현실적인 입력을 방지합니다.
 
 ### Forward (Effort Control)
 
@@ -152,7 +152,7 @@ def forward(self, dt, command):
 | 제어 모드 | Position | Effort |
 | 매 물리 스텝 | 동일 action 재적용 | 매 스텝 토크 재계산 |
 
-ANYmal은 **매 물리 스텝마다** actuator network를 통해 토크를 재계산한다(정책은 decimation 주기로만 업데이트). 이는 현재 관절 상태(위치, 속도)를 반영한 토크 보정이 매 스텝 필요하기 때문이다.
+ANYmal은 **매 물리 스텝마다** actuator network를 통해 토크를 재계산합니다(정책은 decimation 주기로만 업데이트). 이는 현재 관절 상태(위치, 속도)를 반영한 토크 보정이 매 스텝 필요하기 때문입니다.
 
 ### Initialize (Effort Mode)
 
@@ -170,7 +170,7 @@ def initialize(self, physics_sim_view=None):
     self._actuator_network.reset()
 ```
 
-`control_mode="effort"`는 PhysX가 관절을 PD 컨트롤러로 구동하지 않고, 직접 지정된 토크를 적용하게 한다. Actuator network가 사실상 학습된 PD 컨트롤러 역할을 대체한다.
+`control_mode="effort"`는 PhysX가 관절을 PD 컨트롤러로 구동하지 않고, 직접 지정된 토크를 적용하게 합니다. Actuator network가 사실상 학습된 PD 컨트롤러 역할을 대체합니다.
 
 ### Standalone 실행 패턴
 
@@ -210,7 +210,7 @@ def run(self):
 | 종료 | GUI Stop → `world_cleanup()` | `simulation_app.close()` |
 | Headless | 불가 | `SimulationApp({"headless": True})` |
 
-Standalone 방식은 GUI 없이도 실행 가능하므로, 서버 환경에서의 대규모 평가나 데이터 수집에 적합하다.
+Standalone 방식은 GUI 없이도 실행 가능하므로, 서버 환경에서의 대규모 평가나 데이터 수집에 적합합니다.
 
 ### 물리 설정
 
@@ -238,7 +238,7 @@ self._input_keyboard_mapping = {
 }
 ```
 
-Spot(±2.0 m/s)보다 보수적인 ±1.0 m/s 명령 범위를 사용한다. Spot과 동일한 6방향(전후/좌우/회전) 명령을 지원한다.
+Spot(±2.0 m/s)보다 보수적인 ±1.0 m/s 명령 범위를 사용합니다. Spot과 동일한 6방향(전후/좌우/회전) 명령을 지원합니다.
 
 ### Reset 처리
 
@@ -255,7 +255,7 @@ def on_physics_step(self, step_size):
         self._anymal.forward(step_size, self._base_command)
 ```
 
-Standalone에서는 GUI의 Stop/Play와 달리 `is_stopped()` 상태를 감지하여 수동으로 reset을 처리한다. `needs_reset` 플래그를 통해 다음 물리 스텝에서 초기화가 이루어진다. Reset 시 `first_step = True`로 재설정하여 `initialize()`가 다시 호출되며, 이 과정에서 LSTM hidden state도 리셋된다.
+Standalone에서는 GUI의 Stop/Play와 달리 `is_stopped()` 상태를 감지하여 수동으로 reset을 처리합니다. `needs_reset` 플래그를 통해 다음 물리 스텝에서 초기화가 이루어집니다. Reset 시 `first_step = True`로 재설정하여 `initialize()`가 다시 호출되며, 이 과정에서 LSTM hidden state도 리셋됩니다.
 
 ## 실행 방법
 
@@ -291,7 +291,7 @@ python standalone_examples/api/isaacsim.robot.policy.examples/anymal_standalone.
 | 토크 재계산 | 물리 엔진 내부 | 물리 엔진 내부 | 매 물리 스텝 명시적 계산 |
 | Sim-to-Real Gap | 높음 (PD ≠ 실제) | 높음 | 낮음 (SEA 모델링) |
 
-ANYmal의 actuator network 접근은 **sim-to-real transfer**에서 중요한 의미를 가진다. 실제 로봇의 액추에이터 특성(탄성, 마찰, 비선형성)을 학습된 네트워크로 시뮬레이션에서 재현하므로, 학습된 정책이 실제 하드웨어에서 더 잘 동작할 가능성이 높다.
+ANYmal의 actuator network 접근은 **sim-to-real transfer**에서 중요한 의미를 가집니다. 실제 로봇의 액추에이터 특성(탄성, 마찰, 비선형성)을 학습된 네트워크로 시뮬레이션에서 재현하므로, 학습된 정책이 실제 하드웨어에서 더 잘 동작할 가능성이 높습니다.
 
 ## Further Reading
 

@@ -2,7 +2,7 @@
 
 ## 개요
 
-Isaac Lab은 4개의 RL 라이브러리를 공식 지원한다. 각 프레임워크는 `scripts/reinforcement_learning/{framework}/train.py`와 `play.py`로 통합되어, 동일한 `--task` 인자로 어떤 프레임워크든 사용할 수 있다.
+Isaac Lab은 4개의 RL 라이브러리를 공식 지원합니다. 각 프레임워크는 `scripts/reinforcement_learning/{framework}/train.py`와 `play.py`로 통합되어, 동일한 `--task` 인자로 어떤 프레임워크든 사용할 수 있습니다.
 
 ```bash
 # 모든 프레임워크가 동일한 task를 지원
@@ -77,7 +77,7 @@ class CartpoleRslRlPpoCfg:
 
 ## SKRL
 
-범용 RL 라이브러리. 다양한 알고리즘(PPO, SAC, TD3, A2C 등)을 지원하여, PPO 외의 알고리즘 실험이 필요할 때 유용하다.
+범용 RL 라이브러리. 다양한 알고리즘(PPO, SAC, TD3, A2C 등)을 지원하여, PPO 외의 알고리즘 실험이 필요할 때 유용합니다.
 
 ### 특징
 
@@ -95,7 +95,7 @@ class CartpoleRslRlPpoCfg:
 
 ## Stable Baselines3 (SB3)
 
-가장 널리 사용되는 RL 라이브러리. 교육 목적과 벤치마크에 적합하지만, Isaac Lab의 GPU 가속을 완전히 활용하지 못하는 제한이 있다.
+가장 널리 사용되는 RL 라이브러리. 교육 목적과 벤치마크에 적합하지만, Isaac Lab의 GPU 가속을 완전히 활용하지 못하는 제한이 있습니다.
 
 ### 특징
 
@@ -113,11 +113,11 @@ class CartpoleRslRlPpoCfg:
 
 ### 주의사항
 
-SB3는 내부적으로 numpy 배열 기반으로 동작하므로, Isaac Lab의 GPU tensor를 CPU로 복사하는 오버헤드가 발생한다. 대규모 환경(4096+)에서는 RSL-RL이나 SKRL이 더 효율적이다.
+SB3는 내부적으로 numpy 배열 기반으로 동작하므로, Isaac Lab의 GPU tensor를 CPU로 복사하는 오버헤드가 발생합니다. 대규모 환경(4096+)에서는 RSL-RL이나 SKRL이 더 효율적입니다.
 
 ## RL Games
 
-NVIDIA에서 개발한 RL 라이브러리. NVIDIA 내부에서 IsaacGymEnvs와 함께 사용되어 왔다.
+NVIDIA에서 개발한 RL 라이브러리. NVIDIA 내부에서 IsaacGymEnvs와 함께 사용되어 왔습니다.
 
 ### 특징
 
@@ -137,7 +137,7 @@ NVIDIA에서 개발한 RL 라이브러리. NVIDIA 내부에서 IsaacGymEnvs와 �
 
 ### 보행 (Locomotion)
 
-**RSL-RL (권장)**. ETH의 보행 연구에서 검증된 PPO 구현. Asymmetric critic으로 privileged information 활용 가능. 실제 로봇 배포 파이프라인(ONNX)이 잘 갖춰져 있다.
+**RSL-RL (권장)**. ETH의 보행 연구에서 검증된 PPO 구현. Asymmetric critic으로 privileged information 활용 가능. 실제 로봇 배포 파이프라인(ONNX)이 잘 갖춰져 있습니다.
 
 ### 매니퓰레이션 (Manipulation)
 
@@ -145,11 +145,11 @@ NVIDIA에서 개발한 RL 라이브러리. NVIDIA 내부에서 IsaacGymEnvs와 �
 
 ### 교육/벤치마크
 
-**Stable Baselines3**. 문서와 커뮤니티 지원이 풍부. 하지만 대규모 병렬 학습에서는 성능이 떨어진다.
+**Stable Baselines3**. 문서와 커뮤니티 지원이 풍부. 하지만 대규모 병렬 학습에서는 성능이 떨어집니다.
 
 ### 커스텀 알고리즘 연구
 
-**SKRL**. 다양한 알고리즘을 통일된 인터페이스로 비교 가능. 커스텀 모델 정의가 유연하다.
+**SKRL**. 다양한 알고리즘을 통일된 인터페이스로 비교 가능. 커스텀 모델 정의가 유연합니다.
 
 ## 학습 결과 디렉토리 구조
 
@@ -169,7 +169,7 @@ logs/
     └── ...
 ```
 
-모든 프레임워크가 `logs/{framework}/{task}/` 하위에 체크포인트와 로그를 저장한다. TensorBoard로 학습 과정을 모니터링할 수 있다:
+모든 프레임워크가 `logs/{framework}/{task}/` 하위에 체크포인트와 로그를 저장합니다. TensorBoard로 학습 과정을 모니터링할 수 있습니다:
 
 ```bash
 tensorboard --logdir logs/rsl_rl/Isaac-Velocity-Flat-Anymal-C-v0/
@@ -177,7 +177,7 @@ tensorboard --logdir logs/rsl_rl/Isaac-Velocity-Flat-Anymal-C-v0/
 
 ## 사전학습 체크포인트
 
-Isaac Lab은 각 환경에 대해 사전학습된 체크포인트를 제공한다:
+Isaac Lab은 각 환경에 대해 사전학습된 체크포인트를 제공합니다:
 
 ```bash
 # 학습 없이 사전학습 정책 실행
@@ -187,4 +187,4 @@ Isaac Lab은 각 환경에 대해 사전학습된 체크포인트를 제공한�
     --num_envs 32
 ```
 
-`--use_pretrained_checkpoint` 플래그가 Nucleus 서버에서 미리 학습된 모델을 자동 다운로드하여 실행한다.
+`--use_pretrained_checkpoint` 플래그가 Nucleus 서버에서 미리 학습된 모델을 자동 다운로드하여 실행합니다.

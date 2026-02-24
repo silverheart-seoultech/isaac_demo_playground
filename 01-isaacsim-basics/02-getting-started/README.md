@@ -2,7 +2,7 @@
 
 ## Overview
 
-Isaac Sim의 씬 구성 기본 요소를 단계적으로 학습하는 데모. `World` 클래스를 통한 시뮬레이션 관리, USD Prim 타입(Visual/Dynamic/Rigid), 물리/충돌 속성의 동적 추가, 그리고 물리 스테핑 루프를 다룬다. Interactive 버전은 UI 버튼을 통해 씬 요소를 하나씩 추가하며 각 단계의 효과를 시각적으로 확인할 수 있다.
+Isaac Sim의 씬 구성 기본 요소를 단계적으로 학습하는 데모. `World` 클래스를 통한 시뮬레이션 관리, USD Prim 타입(Visual/Dynamic/Rigid), 물리/충돌 속성의 동적 추가, 그리고 물리 스테핑 루프를 다룹니다. Interactive 버전은 UI 버튼을 통해 씬 요소를 하나씩 추가하며 각 단계의 효과를 시각적으로 확인할 수 있습니다.
 
 ## Architecture
 
@@ -21,7 +21,7 @@ World(stage_units_in_meters=1.0)
         └── 500 steps → 충돌 메시가 추가되어 물리 상호작용 가능
 ```
 
-3단계 반복을 통해 USD Prim에 물리 속성을 점진적으로 추가하는 과정을 보여준다. 이는 USD의 composition 아키텍처 — Prim 자체와 물리/충돌 API가 분리된 구조 — 를 직관적으로 이해하게 한다.
+3단계 반복을 통해 USD Prim에 물리 속성을 점진적으로 추가하는 과정을 보여줍니다. 이는 USD의 composition 아키텍처 — Prim 자체와 물리/충돌 API가 분리된 구조 — 를 직관적으로 이해하게 합니다.
 
 ### Interactive UI 구조
 
@@ -65,7 +65,7 @@ for i in range(500):
     world.step(render=True)  # 물리 1스텝 + 렌더링
 ```
 
-`World.step(render=True)`는 한 번의 호출로 물리 시뮬레이션과 렌더링을 모두 수행한다. `render=False`로 설정하면 렌더링을 건너뛰어 headless 학습에서 성능을 최적화할 수 있다.
+`World.step(render=True)`는 한 번의 호출로 물리 시뮬레이션과 렌더링을 모두 수행합니다. `render=False`로 설정하면 렌더링을 건너뛰어 headless 학습에서 성능을 최적화할 수 있습니다.
 
 ### USD Prim 타입 계층
 
@@ -97,7 +97,7 @@ geom = GeometryPrim(prim_path="/World/cube")
 geom.apply_collision_apis()
 ```
 
-USD의 Composition Arc 구조에서는 Prim의 형상(Mesh)과 물리적 속성(RigidBody, Collision)이 별도의 API 스키마로 관리된다. 이 분리 덕분에 동일한 Mesh에 물리 속성을 사후에 추가/제거할 수 있다.
+USD의 Composition Arc 구조에서는 Prim의 형상(Mesh)과 물리적 속성(RigidBody, Collision)이 별도의 API 스키마로 관리됩니다. 이 분리 덕분에 동일한 Mesh에 물리 속성을 사후에 추가/제거할 수 있습니다.
 
 ## 실행 방법
 
@@ -116,15 +116,15 @@ python standalone_examples/tutorials/getting_started.py
 
 ### World vs SimulationContext
 
-`World`는 `SimulationContext`의 상위 래퍼로, `scene` 속성을 통한 오브젝트 관리, 물리 콜백 등록, 리셋 시 오브젝트 기본 상태 복원 기능을 추가로 제공한다. 대부분의 경우 `World`를 사용하되, 물리 엔진을 직접 제어해야 할 때만 `SimulationContext`를 사용한다.
+`World`는 `SimulationContext`의 상위 래퍼로, `scene` 속성을 통한 오브젝트 관리, 물리 콜백 등록, 리셋 시 오브젝트 기본 상태 복원 기능을 추가로 제공합니다. 대부분의 경우 `World`를 사용하되, 물리 엔진을 직접 제어해야 할 때만 `SimulationContext`를 사용합니다.
 
 ### GroundPlane의 역할
 
-`add_default_ground_plane()`은 무한 평면 충돌체를 추가한다. 이 평면은 `PhysicsGroundPlane`으로 구현되며, 렌더링되지 않는 충돌 전용 오브젝트다. 시각적 바닥은 별도의 Mesh로 추가해야 한다.
+`add_default_ground_plane()`은 무한 평면 충돌체를 추가합니다. 이 평면은 `PhysicsGroundPlane`으로 구현되며, 렌더링되지 않는 충돌 전용 오브젝트다. 시각적 바닥은 별도의 Mesh로 추가해야 합니다.
 
 ### 물리 스텝과 렌더링 분리
 
-`physics_dt`와 `rendering_dt`가 다를 수 있다. 예를 들어 `physics_dt=1/120`, `rendering_dt=1/60`이면 렌더링 1프레임당 물리 2스텝이 실행된다. `world.step()`은 이 비율에 따라 물리 서브스텝을 자동으로 처리한다.
+`physics_dt`와 `rendering_dt`가 다를 수 있습니다. 예를 들어 `physics_dt=1/120`, `rendering_dt=1/60`이면 렌더링 1프레임당 물리 2스텝이 실행됩니다. `world.step()`은 이 비율에 따라 물리 서브스텝을 자동으로 처리합니다.
 
 ## Further Reading
 

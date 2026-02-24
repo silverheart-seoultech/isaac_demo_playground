@@ -2,7 +2,7 @@
 
 ## Overview
 
-Unitree Go2 소형 사족보행 로봇의 velocity tracking 환경. 공통 베이스(`LocomotionVelocityRoughEnvCfg`)를 상속하되, Go2의 작은 체격에 맞게 terrain 스케일, action scale, reward 가중치를 조정한다. ANYmal-C(레퍼런스)와 같은 사족보행이지만, 로봇 크기 차이가 환경 설계에 미치는 영향을 구체적으로 보여주는 사례다.
+Unitree Go2 소형 사족보행 로봇의 velocity tracking 환경. 공통 베이스(`LocomotionVelocityRoughEnvCfg`)를 상속하되, Go2의 작은 체격에 맞게 terrain 스케일, action scale, reward 가중치를 조정합니다. ANYmal-C(레퍼런스)와 같은 사족보행이지만, 로봇 크기 차이가 환경 설계에 미치는 영향을 구체적으로 보여주는 사례입니다.
 
 ## Architecture
 
@@ -70,7 +70,7 @@ self.scene.terrain.terrain_generator.sub_terrains["random_rough"].noise_range = 
 self.scene.terrain.terrain_generator.sub_terrains["random_rough"].noise_step = 0.01
 ```
 
-Go2의 다리 길이는 ANYmal-C의 약 절반이다. 같은 높이의 장애물이라도 Go2에게는 상대적으로 2배 어려운 셈이다. boxes의 최대 높이를 0.1m로 제한하고, random_rough의 노이즈를 0.01~0.06m로 줄여 체격에 비례한 난이도를 유지한다.
+Go2의 다리 길이는 ANYmal-C의 약 절반입니다. 같은 높이의 장애물이라도 Go2에게는 상대적으로 2배 어려운 셈입니다. boxes의 최대 높이를 0.1m로 제한하고, random_rough의 노이즈를 0.01~0.06m로 줄여 체격에 비례한 난이도를 유지합니다.
 
 ### Action Scale 축소
 
@@ -78,7 +78,7 @@ Go2의 다리 길이는 ANYmal-C의 약 절반이다. 같은 높이의 장애물
 self.actions.joint_pos.scale = 0.25  # 기본 0.5에서 절반
 ```
 
-Action [-1, 1]이 관절 offset [-0.25, +0.25] rad으로 매핑된다. Go2의 관절 가동 범위가 ANYmal-C보다 작고, 작은 로봇에서 같은 각도 변화가 상대적으로 더 큰 동작을 만들기 때문에 스케일을 절반으로 줄인다. 이는 정책의 action 출력이 더 세밀한 제어를 할 수 있게 한다.
+Action [-1, 1]이 관절 offset [-0.25, +0.25] rad으로 매핑됩니다. Go2의 관절 가동 범위가 ANYmal-C보다 작고, 작은 로봇에서 같은 각도 변화가 상대적으로 더 큰 동작을 만들기 때문에 스케일을 절반으로 줄입니다. 이는 정책의 action 출력이 더 세밀한 제어를 할 수 있게 합니다.
 
 ### Reward 가중치 재조정
 
@@ -106,7 +106,7 @@ self.rewards.undesired_contacts = None
 | `feet_air_time` | 0.125 | **0.01** | Go2는 자연스럽게 trotting gait을 학습하므로 약한 유도로 충분 |
 | `dof_acc_l2` | -2.5e-7 | -2.5e-7 | 동일 유지 |
 
-**핵심 인사이트**: Go2의 `dof_torques_l2` 가중치가 20배로 증가한 것은 단순한 크기 비례가 아니다. 소형 로봇의 모터는 효율 곡선이 다르며, 배터리 용량이 제한적이므로 에너지 절약이 실환경에서 더 중요하다.
+**핵심 인사이트**: Go2의 `dof_torques_l2` 가중치가 20배로 증가한 것은 단순한 크기 비례가 아니다. 소형 로봇의 모터는 효율 곡선이 다르며, 배터리 용량이 제한적이므로 에너지 절약이 실환경에서 더 중요합니다.
 
 ### Domain Randomization 조정
 
@@ -123,7 +123,7 @@ self.events.reset_robot_joints.params["position_range"] = (1.0, 1.0)  # default 
 self.events.reset_base.params["velocity_range"] = all zeros            # 정지 시작
 ```
 
-Go2의 체중이 ~15kg이므로 ±5kg 질량 변화는 33%~67%에 해당한다 (ANYmal-C의 ~50kg에서는 10%). 비대칭 범위 (-1.0, +3.0)은 배낭 등 적재 시나리오를 반영한다(무게 추가가 일반적).
+Go2의 체중이 ~15kg이므로 ±5kg 질량 변화는 33%~67%에 해당합니다 (ANYmal-C의 ~50kg에서는 10%). 비대칭 범위 (-1.0, +3.0)은 배낭 등 적재 시나리오를 반영합니다(무게 추가가 일반적).
 
 ### Termination 조건
 
@@ -131,7 +131,7 @@ Go2의 체중이 ~15kg이므로 ±5kg 질량 변화는 33%~67%에 해당한다 (
 self.terminations.base_contact.params["sensor_cfg"].body_names = "base"
 ```
 
-ANYmal-C의 `"base"` body와 동일하게 base 접촉을 감지한다. H1이 `"torso_link"`로 변경하는 것과 달리 Go2는 사족보행이므로 base 접촉이 곧 전도를 의미한다.
+ANYmal-C의 `"base"` body와 동일하게 base 접촉을 감지합니다. H1이 `"torso_link"`로 변경하는 것과 달리 Go2는 사족보행이므로 base 접촉이 곧 전도를 의미합니다.
 
 ## 실행 방법
 
@@ -181,11 +181,11 @@ cd ~/workspace/IsaacLab
 | Discount (γ) | 0.99 | 0.99 |
 | GAE (λ) | 0.95 | 0.95 |
 
-ANYmal-C와 동일한 네트워크 구조/학습 스케줄을 사용한다. 같은 사족보행 구조이므로 정책의 복잡도가 유사하다. Entropy coef만 0.01로 ANYmal-C(0.005)보다 높은데, 이는 Go2의 다른 reward 가중치 세팅에서 더 넓은 탐색이 필요하기 때문이다.
+ANYmal-C와 동일한 네트워크 구조/학습 스케줄을 사용합니다. 같은 사족보행 구조이므로 정책의 복잡도가 유사합니다. Entropy coef만 0.01로 ANYmal-C(0.005)보다 높은데, 이는 Go2의 다른 reward 가중치 세팅에서 더 넓은 탐색이 필요하기 때문입니다.
 
 ## Comparison: 로봇 크기가 환경 설계에 미치는 영향
 
-Go2 config는 "로봇 크기 스케일링" 패턴을 명확히 보여준다:
+Go2 config는 "로봇 크기 스케일링" 패턴을 명확히 보여줍니다:
 
 ```
 로봇 특성                     → Config 조정
@@ -197,7 +197,7 @@ Go2 config는 "로봇 크기 스케일링" 패턴을 명확히 보여준다:
 빠른 자연 gait 발견          → feet_air_time 가중치 대폭 감소
 ```
 
-이 패턴은 새로운 소형/대형 로봇을 추가할 때 참고할 수 있다. 핵심 원칙은 "환경 파라미터를 로봇 체격에 비례하여 스케일링"하되, 단순 비례가 아닌 물리적 특성(모터 효율, gait 특성)을 고려하는 것이다.
+이 패턴은 새로운 소형/대형 로봇을 추가할 때 참고할 수 있습니다. 핵심 원칙은 "환경 파라미터를 로봇 체격에 비례하여 스케일링"하되, 단순 비례가 아닌 물리적 특성(모터 효율, gait 특성)을 고려하는 것입니다.
 
 ## Further Reading
 

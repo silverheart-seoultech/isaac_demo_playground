@@ -2,9 +2,9 @@
 
 ## Overview
 
-Franka (매니퓰레이터), UR10 (매니퓰레이터), Kaya (홀로노믹 이동 로봇), Jetbot (디퍼렌셜 이동 로봇) 총 4종의 로봇이 하나의 씬에서 동시에 동작하는 데모. 매니퓰레이터는 큐브 스태킹을, 이동 로봇은 시간 기반 주행 명령을 수행한다.
+Franka (매니퓰레이터), UR10 (매니퓰레이터), Kaya (홀로노믹 이동 로봇), Jetbot (디퍼렌셜 이동 로봇) 총 4종의 로봇이 하나의 씬에서 동시에 동작하는 데모. 매니퓰레이터는 큐브 스태킹을, 이동 로봇은 시간 기반 주행 명령을 수행합니다.
 
-이 데모의 핵심은 **이종 로봇(heterogeneous robot) 통합 관리**다. 각 로봇이 서로 다른 Controller 타입(IK 기반 매니퓰레이션, 홀로노믹 구동, 디퍼렌셜 구동)을 사용하지만, 단일 물리 루프에서 통합 관리된다.
+이 데모의 핵심은 **이종 로봇(heterogeneous robot) 통합 관리**다. 각 로봇이 서로 다른 Controller 타입(IK 기반 매니퓰레이션, 홀로노믹 구동, 디퍼렌셜 구동)을 사용하지만, 단일 물리 루프에서 통합 관리됩니다.
 
 ## Architecture
 
@@ -73,9 +73,9 @@ def setup_scene(self):
 
 **두 가지 로봇 추가 패턴**:
 - **매니퓰레이터**: `world.add_task()`로 Task를 통해 추가. Task가 로봇 + 오브젝트 + observation을 캡슐화.
-- **이동 로봇**: `world.scene.add()`로 직접 추가. Task 없이 로봇만 존재하며, 별도의 observation 프레임워크를 사용하지 않는다.
+- **이동 로봇**: `world.scene.add()`로 직접 추가. Task 없이 로봇만 존재하며, 별도의 observation 프레임워크를 사용하지 않습니다.
 
-이 차이는 이동 로봇이 observation 기반 피드백 제어가 아닌, 시간 기반 오픈 루프 명령으로 동작하기 때문이다.
+이 차이는 이동 로봇이 observation 기반 피드백 제어가 아닌, 시간 기반 오픈 루프 명령으로 동작하기 때문입니다.
 
 ### 4종 Controller 초기화
 
@@ -110,9 +110,9 @@ async def setup_post_load(self):
     ))
 ```
 
-**HolonomicRobotUsdSetup**: USD 파일에서 wheel 파라미터(반지름, 위치, 방향, mecanum 각도)를 자동으로 추출한다. 이 패턴 덕분에 홀로노믹 로봇의 kinematics 파라미터를 하드코딩하지 않아도 된다.
+**HolonomicRobotUsdSetup**: USD 파일에서 wheel 파라미터(반지름, 위치, 방향, mecanum 각도)를 자동으로 추출합니다. 이 패턴 덕분에 홀로노믹 로봇의 kinematics 파라미터를 하드코딩하지 않아도 됩니다.
 
-**DifferentialController**: `wheel_radius=0.03`, `wheel_base=0.1125`를 직접 지정한다. Jetbot은 단순한 2-wheel 구성이므로 USD에서 자동 추출하지 않는다.
+**DifferentialController**: `wheel_radius=0.03`, `wheel_base=0.1125`를 직접 지정합니다. Jetbot은 단순한 2-wheel 구성이므로 USD에서 자동 추출하지 않습니다.
 
 ### 시간 기반 이동 로봇 명령
 
@@ -145,11 +145,11 @@ def _on_start_party_physics_step(self, step_size):
 | FrankaStackingController | `forward(observations)` | Observation 기반 상태 머신 |
 | UR10StackingController | `forward(observations, offset)` | 동일, `end_effector_offset=[0,0,0.02]` 추가 |
 
-UR10의 `end_effector_offset=[0,0,0.02]`는 그리퍼 형상 차이를 보상한다. UR10 그리퍼가 Franka보다 약간 길기 때문에 2cm 오프셋을 적용한다.
+UR10의 `end_effector_offset=[0,0,0.02]`는 그리퍼 형상 차이를 보상합니다. UR10 그리퍼가 Franka보다 약간 길기 때문에 2cm 오프셋을 적용합니다.
 
 ### 홀로노믹 vs 디퍼렌셜 구동 비교
 
-**Kaya (Holonomic)**: 3개의 mecanum wheel로 구성. `[vx, vy, omega]` 3-DOF 명령을 받아, 전후/좌우/회전을 독립적으로 제어할 수 있다. Non-holonomic constraint가 없으므로, 제자리에서 횡이동(strafing)이 가능하다.
+**Kaya (Holonomic)**: 3개의 mecanum wheel로 구성. `[vx, vy, omega]` 3-DOF 명령을 받아, 전후/좌우/회전을 독립적으로 제어할 수 있습니다. Non-holonomic constraint가 없으므로, 제자리에서 횡이동(strafing)이 가능합니다.
 
 ```python
 HolonomicController.forward(command=[vx, vy, omega])
@@ -157,7 +157,7 @@ HolonomicController.forward(command=[vx, vy, omega])
 # J: wheel 배치에 따른 Jacobian (3x3)
 ```
 
-**Jetbot (Differential)**: 2개의 독립 구동 wheel로 구성. `[v, omega]` 2-DOF 명령만 받을 수 있다. Non-holonomic constraint 때문에 횡이동이 불가능하고, 방향 전환 시 반드시 회전이 필요하다.
+**Jetbot (Differential)**: 2개의 독립 구동 wheel로 구성. `[v, omega]` 2-DOF 명령만 받을 수 있습니다. Non-holonomic constraint 때문에 횡이동이 불가능하고, 방향 전환 시 반드시 회전이 필요합니다.
 
 ```python
 DifferentialController.forward(command=[v, omega])

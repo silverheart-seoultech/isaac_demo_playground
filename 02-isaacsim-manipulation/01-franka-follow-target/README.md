@@ -2,9 +2,9 @@
 
 ## Overview
 
-Franka Emika Panda 로봇이 GUI에서 드래그 가능한 타겟 마커를 실시간으로 추종하는 데모. 핵심은 **RMPflow (Riemannian Motion Policies)** 컨트롤러로, task-space의 end-effector 목표 위치/방향을 joint-space action으로 변환한다. 장애물 추가/제거, 데이터 로깅 기능도 포함된다.
+Franka Emika Panda 로봇이 GUI에서 드래그 가능한 타겟 마커를 실시간으로 추종하는 데모. 핵심은 **RMPflow (Riemannian Motion Policies)** 컨트롤러로, task-space의 end-effector 목표 위치/방향을 joint-space action으로 변환합니다. 장애물 추가/제거, 데이터 로깅 기능도 포함됩니다.
 
-이 데모는 Isaac Sim의 **Task 기반 아키텍처**를 보여준다. `FollowTargetTask`가 씬 구성(로봇, 타겟)과 observation 제공을 담당하고, `RMPFlowController`가 모션 생성을 담당하는 분리된 구조다.
+이 데모는 Isaac Sim의 **Task 기반 아키텍처**를 보여줍니다. `FollowTargetTask`가 씬 구성(로봇, 타겟)과 observation 제공을 담당하고, `RMPFlowController`가 모션 생성을 담당하는 분리된 구조입니다.
 
 ## Architecture
 
@@ -75,11 +75,11 @@ class FollowTarget(BaseSample):
         )
 ```
 
-**Task**: `FollowTargetTask`가 Franka 로봇과 드래그 가능한 타겟 마커를 씬에 배치하고, 매 스텝 타겟의 position/orientation을 observation으로 제공한다. Task는 **무엇을 해야 하는가**(목표 정의)를 담당한다.
+**Task**: `FollowTargetTask`가 Franka 로봇과 드래그 가능한 타겟 마커를 씬에 배치하고, 매 스텝 타겟의 position/orientation을 observation으로 제공합니다. Task는 **무엇을 해야 하는가**(목표 정의)를 담당합니다.
 
-**Controller**: `RMPFlowController`가 observation(타겟 위치)을 받아 관절 명령을 생성한다. Controller는 **어떻게 해야 하는가**(모션 생성)를 담당한다.
+**Controller**: `RMPFlowController`가 observation(타겟 위치)을 받아 관절 명령을 생성합니다. Controller는 **어떻게 해야 하는가**(모션 생성)를 담당합니다.
 
-이 분리는 동일한 Task에 다른 Controller(예: IK, 강화학습 정책)를 교체할 수 있게 한다.
+이 분리는 동일한 Task에 다른 Controller(예: IK, 강화학습 정책)를 교체할 수 있게 합니다.
 
 ### RMPflow Controller
 
@@ -93,7 +93,7 @@ def _on_follow_target_simulation_step(self, step_size):
     self._articulation_controller.apply_action(actions)
 ```
 
-**RMPflow (Riemannian Motion Policies)**: 전통적인 IK와 달리, RMPflow는 여러 목표(end-effector 추종, 충돌 회피, 관절 리밋 유지, 자기충돌 방지)를 Riemannian 공간에서 통합하여 하나의 가속도 명령을 생성한다. 각 목표가 독립적인 "policy"로 작동하며, 이들이 기하학적으로 결합된다.
+**RMPflow (Riemannian Motion Policies)**: 전통적인 IK와 달리, RMPflow는 여러 목표(end-effector 추종, 충돌 회피, 관절 리밋 유지, 자기충돌 방지)를 Riemannian 공간에서 통합하여 하나의 가속도 명령을 생성합니다. 각 목표가 독립적인 "policy"로 작동하며, 이들이 기하학적으로 결합됩니다.
 
 ### 장애물 동적 추가/제거
 
@@ -108,7 +108,7 @@ def _on_remove_obstacle_event(self):
     current_task.remove_obstacle()                         # 씬에서 제거
 ```
 
-RMPflow는 런타임에 장애물을 동적으로 추가/제거할 수 있다. 장애물이 추가되면 Controller 내부에 새로운 충돌 회피 policy가 생성되어, 기존 목표(타겟 추종)와 자동으로 통합된다.
+RMPflow는 런타임에 장애물을 동적으로 추가/제거할 수 있습니다. 장애물이 추가되면 Controller 내부에 새로운 충돌 회피 policy가 생성되어, 기존 목표(타겟 추종)와 자동으로 통합됩니다.
 
 ### Data Logger
 
@@ -122,7 +122,7 @@ def frame_logging_func(tasks, scene):
 data_logger.add_data_frame_logging_func(frame_logging_func)
 ```
 
-매 프레임 관절 위치, 적용된 명령, 타겟 위치를 기록한다. `data_logger.save(log_path)`로 JSON 파일로 저장할 수 있으며, 이후 경로 분석이나 디버깅에 활용된다.
+매 프레임 관절 위치, 적용된 명령, 타겟 위치를 기록합니다. `data_logger.save(log_path)`로 JSON 파일로 저장할 수 있으며, 이후 경로 분석이나 디버깅에 활용됩니다.
 
 ## 실행 방법
 

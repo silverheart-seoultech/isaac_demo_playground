@@ -2,9 +2,9 @@
 
 ## Overview
 
-4대의 Franka Emika Panda가 동시에 큐브 스태킹(쌓기) 작업을 수행하는 데모. 각 로봇이 독립적인 `Stacking` Task와 `StackingController`를 가지며, y축 방향으로 2m 간격으로 배치된다. Isaac Sim의 **다중 Task 병렬 실행** 패턴을 보여준다.
+4대의 Franka Emika Panda가 동시에 큐브 스태킹(쌓기) 작업을 수행하는 데모. 각 로봇이 독립적인 `Stacking` Task와 `StackingController`를 가지며, y축 방향으로 2m 간격으로 배치됩니다. Isaac Sim의 **다중 Task 병렬 실행** 패턴을 보여줍니다.
 
-이 데모는 `04-isaacsim-multirobot/01-robo-factory/`와 동일한 코드를 분석한다. 핵심은 단일 물리 루프에서 여러 독립적인 Task-Controller 쌍을 관리하는 구조다.
+이 데모는 `04-isaacsim-multirobot/01-robo-factory/`와 동일한 코드를 분석합니다. 핵심은 단일 물리 루프에서 여러 독립적인 Task-Controller 쌍을 관리하는 구조입니다.
 
 ## Architecture
 
@@ -48,7 +48,7 @@ def setup_scene(self):
         world.add_task(task)
 ```
 
-`offset`으로 각 Task를 y축 방향으로 분리한다: `[-3, -1, 1, 3]`m. 각 Stacking Task가 독립적인 Franka + 큐브 세트를 생성한다.
+`offset`으로 각 Task를 y축 방향으로 분리합니다: `[-3, -1, 1, 3]`m. 각 Stacking Task가 독립적인 Franka + 큐브 세트를 생성합니다.
 
 ### 통합 물리 루프
 
@@ -63,18 +63,18 @@ def _on_start_factory_physics_step(self, step_size):
         self._articulation_controllers[i].apply_action(actions)
 ```
 
-**단일 `get_observations()` 호출**: 모든 로봇과 큐브의 상태를 한 번에 가져온다. 각 Controller가 자신의 로봇/큐브에 해당하는 observation만 참조한다.
+**단일 `get_observations()` 호출**: 모든 로봇과 큐브의 상태를 한 번에 가져옵니다. 각 Controller가 자신의 로봇/큐브에 해당하는 observation만 참조합니다.
 
-**순차 action 적용**: 4대 로봇의 action을 순서대로 계산하고 적용한다. 물리 엔진은 모든 action이 적용된 후 한 번에 시뮬레이션한다.
+**순차 action 적용**: 4대 로봇의 action을 순서대로 계산하고 적용합니다. 물리 엔진은 모든 action이 적용된 후 한 번에 시뮬레이션합니다.
 
 ### StackingController
 
-`StackingController`는 내부적으로 상태 머신(state machine)을 구현한다:
+`StackingController`는 내부적으로 상태 머신(state machine)을 구현합니다:
 1. **Pick**: 큐브 위치로 EE 이동 → 하강 → 그리퍼 닫기
 2. **Place**: 목표 스태킹 위치로 이동 → 그리퍼 열기
 3. 다음 큐브로 반복
 
-`picking_order_cube_names`로 큐브 스태킹 순서를 지정한다.
+`picking_order_cube_names`로 큐브 스태킹 순서를 지정합니다.
 
 ## 실행 방법
 

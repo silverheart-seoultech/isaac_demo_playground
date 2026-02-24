@@ -2,9 +2,9 @@
 
 ## Overview
 
-Isaac Lab의 Direct RL 패러다임으로 구현된 CartPole 환경. 단일 클래스(`CartpoleEnv`)에서 observation 구성, reward 계산, reset 로직을 명시적으로 구현한다. 4차원 observation, 1차원 action의 최소 구성으로 Isaac Lab의 환경 구조를 이해하는 진입점이다.
+Isaac Lab의 Direct RL 패러다임으로 구현된 CartPole 환경. 단일 클래스(`CartpoleEnv`)에서 observation 구성, reward 계산, reset 로직을 명시적으로 구현합니다. 4차원 observation, 1차원 action의 최소 구성으로 Isaac Lab의 환경 구조를 이해하는 진입점입니다.
 
-Manager-Based 버전(`02-cartpole-manager/`)과 비교하면 Direct 패러다임의 특성 — 명시적 제어, 단일 파일 구현, JIT 컴파일 가능한 리워드 — 을 명확히 파악할 수 있다.
+Manager-Based 버전(`02-cartpole-manager/`)과 비교하면 Direct 패러다임의 특성 — 명시적 제어, 단일 파일 구현, JIT 컴파일 가능한 리워드 — 을 명확히 파악할 수 있습니다.
 
 ## Architecture
 
@@ -79,9 +79,9 @@ def _get_observations(self) -> dict:
     return {"policy": obs}
 ```
 
-**설계 근거**: CartPole은 pole 각도/속도와 cart 위치/속도 4개 값으로 시스템 상태가 완전히 결정된다 (fully observable). 별도의 노이즈나 정규화 없이 raw 값을 직접 사용하는데, 이는 시스템이 단순하여 정책이 raw 값의 범위를 빠르게 학습할 수 있기 때문이다.
+**설계 근거**: CartPole은 pole 각도/속도와 cart 위치/속도 4개 값으로 시스템 상태가 완전히 결정됩니다 (fully observable). 별도의 노이즈나 정규화 없이 raw 값을 직접 사용하는데, 이는 시스템이 단순하여 정책이 raw 값의 범위를 빠르게 학습할 수 있기 때문입니다.
 
-`"policy"` 키로 반환하는 구조는 Isaac Lab의 관례로, 학습 프레임워크가 이 키로 observation을 참조한다.
+`"policy"` 키로 반환하는 구조는 Isaac Lab의 관례로, 학습 프레임워크가 이 키로 observation을 참조합니다.
 
 ### Reward Decomposition
 
@@ -110,7 +110,7 @@ def _get_rewards(self) -> torch.Tensor:
 | `rew_cart_vel` | -0.01 | \|cart_vel\| | cart의 불필요한 이동 억제 |
 | `rew_pole_vel` | -0.005 | \|pole_vel\| | pole의 진동/흔들림 억제 |
 
-**가중치 분석**: `rew_alive(+1.0)`가 가장 크므로 정책은 우선 생존을 최적화한다. `rew_pole_pos(-1.0)`가 다음으로 커서 pole 직립에 집중한다. 속도 관련 페널티는 상대적으로 작아(0.01, 0.005) 안정성보다는 약한 regularizer 역할을 한다.
+**가중치 분석**: `rew_alive(+1.0)`가 가장 크므로 정책은 우선 생존을 최적화합니다. `rew_pole_pos(-1.0)`가 다음으로 커서 pole 직립에 집중합니다. 속도 관련 페널티는 상대적으로 작아(0.01, 0.005) 안정성보다는 약한 regularizer 역할을 합니다.
 
 ### JIT-Compiled Reward Function
 
@@ -131,7 +131,7 @@ def compute_rewards(
     ...
 ```
 
-`@torch.jit.script`는 Python 오버헤드를 제거하고 CUDA 커널로 컴파일한다. 4096+ 환경을 병렬 실행할 때 reward 계산이 bottleneck이 되지 않도록 최적화한 것이다. Manager-Based 방식에서는 이 최적화가 자동으로 적용되지 않으므로, 성능 민감한 환경에서 Direct 방식이 유리할 수 있다.
+`@torch.jit.script`는 Python 오버헤드를 제거하고 CUDA 커널로 컴파일합니다. 4096+ 환경을 병렬 실행할 때 reward 계산이 bottleneck이 되지 않도록 최적화한 것입니다. Manager-Based 방식에서는 이 최적화가 자동으로 적용되지 않으므로, 성능 민감한 환경에서 Direct 방식이 유리할 수 있습니다.
 
 ### Reset Strategy
 
@@ -153,7 +153,7 @@ def _reset_idx(self, env_ids: Sequence[int] | None):
     self.cartpole.write_joint_state_to_sim(joint_pos, joint_vel, env_ids=env_ids)
 ```
 
-**설계 근거**: Pole 각도를 ±45°, cart 위치를 ±1m 범위에서 랜덤 초기화한다. 속도는 0으로 시작한다. 이 초기 분포는 정책이 다양한 초기 조건에서 복구하는 능력을 학습하게 한다. 범위가 너무 넓으면(±90°) 초기 상태에서 이미 종료 조건에 도달하여 학습이 비효율적이다.
+**설계 근거**: Pole 각도를 ±45°, cart 위치를 ±1m 범위에서 랜덤 초기화합니다. 속도는 0으로 시작합니다. 이 초기 분포는 정책이 다양한 초기 조건에서 복구하는 능력을 학습하게 합니다. 범위가 너무 넓으면(±90°) 초기 상태에서 이미 종료 조건에 도달하여 학습이 비효율적입니다.
 
 ### 물리 설정
 
@@ -197,7 +197,7 @@ CARTPOLE_CFG = ArticulationCfg(
 )
 ```
 
-`{ENV_REGEX_NS}`는 Isaac Lab이 병렬 환경 생성 시 자동으로 `/World/envs/env_0`, `/World/envs/env_1`, ...으로 치환한다. Cart의 damping=10.0은 과도한 속도를 물리적으로 억제하며, pole의 damping=0.0은 자유 회전을 허용하여 제어 문제의 본질을 유지한다.
+`{ENV_REGEX_NS}`는 Isaac Lab이 병렬 환경 생성 시 자동으로 `/World/envs/env_0`, `/World/envs/env_1`, ...으로 치환합니다. Cart의 damping=10.0은 과도한 속도를 물리적으로 억제하며, pole의 damping=0.0은 자유 회전을 허용하여 제어 문제의 본질을 유지합니다.
 
 ## 실행 방법
 
@@ -240,7 +240,7 @@ cd ~/workspace/IsaacLab
 | GAE (λ) | 0.95 | Generalized Advantage Estimation |
 | Entropy Coef | 0.0 | Entropy bonus 없음 |
 
-네트워크가 [32, 32]으로 매우 작은 것은 CartPole이 4D observation → 1D action의 단순한 매핑이기 때문이다. 150 iteration이면 약 10M 환경 스텝(4096 × 16 × 150)으로 수렴한다.
+네트워크가 [32, 32]으로 매우 작은 것은 CartPole이 4D observation → 1D action의 단순한 매핑이기 때문입니다. 150 iteration이면 약 10M 환경 스텝(4096 × 16 × 150)으로 수렴합니다.
 
 ## Comparison: Direct vs Manager-Based
 

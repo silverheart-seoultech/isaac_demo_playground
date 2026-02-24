@@ -2,9 +2,9 @@
 
 ## Overview
 
-IMU(Inertial Measurement Unit) 센서의 생성과 데이터 수집을 다루는 예제. 가속도계(accelerometer) 3축, 자이로스코프(gyroscope) 3축, 방향(orientation) 4원수(quaternion) 총 10개 값을 실시간으로 측정한다.
+IMU(Inertial Measurement Unit) 센서의 생성과 데이터 수집을 다루는 예제. 가속도계(accelerometer) 3축, 자이로스코프(gyroscope) 3축, 방향(orientation) 4원수(quaternion) 총 10개 값을 실시간으로 측정합니다.
 
-Extension 버전은 Ant 로봇의 중심 body에 IMU를 부착하고, Standalone 버전은 Nova Carter 이동 로봇의 바퀴에 IMU를 부착하여 주행 중 관성 데이터를 수집한다.
+Extension 버전은 Ant 로봇의 중심 body에 IMU를 부착하고, Standalone 버전은 Nova Carter 이동 로봇의 바퀴에 IMU를 부착하여 주행 중 관성 데이터를 수집합니다.
 
 ## Architecture
 
@@ -90,7 +90,7 @@ imu_sensor = IMUSensor(
 )
 ```
 
-`frequency=60`은 초당 60회 센서 업데이트를 의미한다. 물리 시뮬레이션이 더 높은 주파수로 실행되더라도, IMU 데이터는 60Hz로 다운샘플링된다. 이는 실제 IMU 하드웨어의 동작을 모사한다.
+`frequency=60`은 초당 60회 센서 업데이트를 의미합니다. 물리 시뮬레이션이 더 높은 주파수로 실행되더라도, IMU 데이터는 60Hz로 다운샘플링됩니다. 이는 실제 IMU 하드웨어의 동작을 모사합니다.
 
 ### IMU 데이터 구조 (10개 값)
 
@@ -100,7 +100,7 @@ imu_sensor = IMUSensor(
 | 3-5 | `ang_vel_x/y/z` | rad/s | 각속도 |
 | 6-9 | `orientation[0-3]` | quaternion (xyzw) | 센서의 절대 방향 |
 
-**중력 포함**: `lin_acc`는 중력 가속도를 포함한다. 정지 상태에서 z축 가속도가 약 9.81 m/s²로 측정된다. 실제 IMU와 동일하게, 관성 프레임 기준의 가속도에서 중력을 분리하려면 별도의 보정이 필요하다.
+**중력 포함**: `lin_acc`는 중력 가속도를 포함합니다. 정지 상태에서 z축 가속도가 약 9.81 m/s²로 측정됩니다. 실제 IMU와 동일하게, 관성 프레임 기준의 가속도에서 중력을 분리하려면 별도의 보정이 필요합니다.
 
 ### 데이터 읽기
 
@@ -150,12 +150,12 @@ elif i == 2000:
     i = 0                        # 반복
 ```
 
-Carter가 직진 → 회전 → 직진 패턴으로 주행하면서 IMU 데이터를 수집한다. 이 패턴에서:
+Carter가 직진 → 회전 → 직진 패턴으로 주행하면서 IMU 데이터를 수집합니다. 이 패턴에서:
 - **직진 구간**: `lin_acc`는 초기 가속 후 거의 0, `ang_vel`은 0
 - **회전 구간**: `lin_acc`에 원심 가속도 발생, `ang_vel_z`가 `π/12` rad/s
 - **방향 전환 시**: `orientation` quaternion이 점진적으로 변화
 
-이 데이터를 통해 IMU의 물리적 정확성을 검증할 수 있다.
+이 데이터를 통해 IMU의 물리적 정확성을 검증할 수 있습니다.
 
 ### ArticulationActions 변환 패턴
 
@@ -173,7 +173,7 @@ for j in range(len(wheel_dof_indices)):
     joint_actions.joint_velocities[0, wheel_dof_indices[j]] = actions.joint_velocities[0, j]
 ```
 
-`DifferentialController`의 출력은 2개 wheel의 속도만 포함하지만, Carter는 더 많은 DOF를 가진다. 전체 DOF 크기의 zero 벡터를 만들고, wheel DOF 인덱스에만 값을 채우는 패턴이다. 이는 multi-DOF 로봇에서 특정 joint만 제어할 때의 표준 패턴이다.
+`DifferentialController`의 출력은 2개 wheel의 속도만 포함하지만, Carter는 더 많은 DOF를 가집니다. 전체 DOF 크기의 zero 벡터를 만들고, wheel DOF 인덱스에만 값을 채우는 패턴입니다. 이는 multi-DOF 로봇에서 특정 joint만 제어할 때의 표준 패턴입니다.
 
 ## 실행 방법
 

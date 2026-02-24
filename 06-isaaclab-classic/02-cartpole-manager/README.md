@@ -2,7 +2,7 @@
 
 ## Overview
 
-Isaac Lab의 Manager-Based 패러다임으로 구현된 CartPole 환경. Direct 방식(`01-cartpole-direct/`)과 동일한 CartPole 문제를 선언적 Config 클래스로 정의한다. MDP의 각 요소(observation, action, reward, termination, event)를 독립적인 Manager에 위임하여 모듈성과 재사용성을 극대화한다.
+Isaac Lab의 Manager-Based 패러다임으로 구현된 CartPole 환경. Direct 방식(`01-cartpole-direct/`)과 동일한 CartPole 문제를 선언적 Config 클래스로 정의합니다. MDP의 각 요소(observation, action, reward, termination, event)를 독립적인 Manager에 위임하여 모듈성과 재사용성을 극대화합니다.
 
 ## Architecture
 
@@ -41,7 +41,7 @@ ManagerBasedRLEnvCfg
 
 ### Direct와의 근본적 차이
 
-Direct 방식에서는 `_get_observations()`, `_get_rewards()` 등을 개발자가 직접 구현한다. Manager-Based에서는 이들을 **선언적 Config**로 정의하면, 각 Manager가 런타임에 해당 함수를 조립한다.
+Direct 방식에서는 `_get_observations()`, `_get_rewards()` 등을 개발자가 직접 구현합니다. Manager-Based에서는 이들을 **선언적 Config**로 정의하면, 각 Manager가 런타임에 해당 함수를 조립합니다.
 
 ```python
 # Direct: 명시적 구현
@@ -77,9 +77,9 @@ class ObservationsCfg:
         enable_corruption = False
 ```
 
-`joint_pos_rel`은 기본 위치 대비 상대적 관절 각도를 반환하고, `joint_vel_rel`은 기본 속도 대비 상대적 관절 속도를 반환한다. Direct 버전이 raw 절대값을 사용하는 반면, Manager-Based 버전은 상대값을 사용한다는 차이가 있다. 결과적으로 observation 공간의 의미가 약간 다르지만, 정책 학습에는 큰 영향이 없다.
+`joint_pos_rel`은 기본 위치 대비 상대적 관절 각도를 반환하고, `joint_vel_rel`은 기본 속도 대비 상대적 관절 속도를 반환합니다. Direct 버전이 raw 절대값을 사용하는 반면, Manager-Based 버전은 상대값을 사용합니다는 차이가 있습니다. 결과적으로 observation 공간의 의미가 약간 다르지만, 정책 학습에는 큰 영향이 없습니다.
 
-`enable_corruption = False`로 observation noise를 비활성화했다. 이를 `True`로 바꾸고 각 term에 `noise` 파라미터를 추가하면 sim-to-real transfer를 위한 도메인 랜덤화가 가능하다.
+`enable_corruption = False`로 observation noise를 비활성화했습니다. 이를 `True`로 바꾸고 각 term에 `noise` 파라미터를 추가하면 sim-to-real transfer를 위한 도메인 랜덤화가 가능합니다.
 
 ### Reward Config
 
@@ -105,7 +105,7 @@ class RewardsCfg:
     )
 ```
 
-**핵심 패턴**: 각 reward term은 `(func, weight, params)` 3-tuple로 정의된다. `func`은 재사용 가능한 MDP 함수(예: `joint_vel_l1`은 어떤 로봇의 어떤 관절에도 적용 가능)이고, `params`에서 대상 관절을 지정한다.
+**핵심 패턴**: 각 reward term은 `(func, weight, params)` 3-tuple로 정의됩니다. `func`은 재사용 가능한 MDP 함수(예: `joint_vel_l1`은 어떤 로봇의 어떤 관절에도 적용 가능)이고, `params`에서 대상 관절을 지정합니다.
 
 이 선언적 구조의 장점:
 1. **Reward term 추가/제거**가 Config 변경만으로 가능 (코드 수정 불필요)
@@ -136,7 +136,7 @@ class EventsCfg:
     )
 ```
 
-`mode="reset"`은 에피소드 시작 시에만 실행됨을 의미한다. `mode="interval"`로 바꾸면 학습 중 주기적으로 실행되어 도메인 랜덤화에 활용할 수 있다.
+`mode="reset"`은 에피소드 시작 시에만 실행됨을 의미합니다. `mode="interval"`로 바꾸면 학습 중 주기적으로 실행되어 도메인 랜덤화에 활용할 수 있습니다.
 
 ### Termination Config
 
@@ -150,7 +150,7 @@ class TerminationsCfg:
     )
 ```
 
-`time_out=True`는 이 종료가 시간 초과에 의한 것(truncation)임을 표시한다. RL에서 truncation과 termination의 구분은 value function bootstrapping에 영향을 미친다 — 시간 초과는 실제 실패가 아니므로 다음 상태의 value를 bootstrap해야 한다.
+`time_out=True`는 이 종료가 시간 초과에 의한 것(truncation)임을 표시합니다. RL에서 truncation과 termination의 구분은 value function bootstrapping에 영향을 미친다 — 시간 초과는 실제 실패가 아니므로 다음 상태의 value를 bootstrap해야 합니다.
 
 ## 실행 방법
 

@@ -1,7 +1,7 @@
 # Isaac Sim & Isaac Lab Demo Playground
 
 NVIDIA Isaac Sim과 Isaac Lab의 주요 데모를 분석하고 정리한 레포지토리.
-Isaac 생태계의 물리 시뮬레이션, 로봇 제어, 강화학습 파이프라인을 체계적으로 학습할 수 있도록 구성했다.
+Isaac 생태계의 물리 시뮬레이션, 로봇 제어, 강화학습 파이프라인을 체계적으로 학습할 수 있도록 구성했습니다.
 
 ## 레포지토리 구조
 
@@ -52,7 +52,7 @@ isaac_sim_demo_playground/
 
 ## Isaac 생태계 아키텍처
 
-Isaac 생태계는 세 계층으로 구성된다:
+Isaac 생태계는 세 계층으로 구성됩니다:
 
 ```
 ┌─────────────────────────────────────────────────────┐
@@ -69,19 +69,19 @@ Isaac 생태계는 세 계층으로 구성된다:
 └─────────────────────────────────────────────────────┘
 ```
 
-**Isaac Sim**은 PhysX 5 기반의 GPU 가속 물리 시뮬레이션을 제공한다. USD(Universal Scene Description) 포맷으로 씬을 관리하며, Extension 시스템으로 기능을 모듈화한다. GUI 모드에서 인터랙티브 데모를 실행하거나, Standalone 스크립트로 headless 실행이 가능하다.
+**Isaac Sim**은 PhysX 5 기반의 GPU 가속 물리 시뮬레이션을 제공합니다. USD(Universal Scene Description) 포맷으로 씬을 관리하며, Extension 시스템으로 기능을 모듈화합니다. GUI 모드에서 인터랙티브 데모를 실행하거나, Standalone 스크립트로 headless 실행이 가능합니다.
 
-**Isaac Lab**은 Isaac Sim 위에 구축된 강화학습 프레임워크다. 환경을 정의하는 두 가지 패러다임을 제공한다:
+**Isaac Lab**은 Isaac Sim 위에 구축된 강화학습 프레임워크입니다. 환경을 정의하는 두 가지 패러다임을 제공합니다:
 - **Direct**: 단일 클래스에서 observation, reward, reset을 명시적으로 구현. 로직을 세밀하게 제어할 때 사용.
 - **Manager-Based**: 선언적 config로 MDP 요소(observation, action, reward, termination, curriculum)를 각각의 Manager에 위임. 코드 재사용성이 높음.
 
 ## 실행 방식
 
-이 레포지토리의 데모는 세 가지 방식으로 실행된다:
+이 레포지토리의 데모는 세 가지 방식으로 실행됩니다:
 
 ### 1. Isaac Sim GUI (Interactive Demo)
 
-GUI 앱을 실행한 후 메뉴에서 데모를 선택한다. `01~05` 섹션의 대부분이 이 방식이다.
+GUI 앱을 실행한 후 메뉴에서 데모를 선택합니다. `01~05` 섹션의 대부분이 이 방식입니다.
 
 ```bash
 # Isaac Sim GUI 실행 (interactive examples 활성화)
@@ -91,11 +91,11 @@ cd ~/workspace/IsaacSim
 # GUI 내 메뉴: Isaac Examples > [카테고리] > [데모 이름]
 ```
 
-내부적으로 각 데모는 `BaseSample`을 상속하며, Extension의 `on_startup()`에서 `get_browser_instance().register_example()`로 등록된다. `setup_scene()` → `setup_post_load()` → `_on_physics_step()` 순서로 초기화 및 시뮬레이션이 진행된다.
+내부적으로 각 데모는 `BaseSample`을 상속하며, Extension의 `on_startup()`에서 `get_browser_instance().register_example()`로 등록됩니다. `setup_scene()` → `setup_post_load()` → `_on_physics_step()` 순서로 초기화 및 시뮬레이션이 진행됩니다.
 
 ### 2. Isaac Sim Standalone Script
 
-GUI 없이 Python 스크립트를 직접 실행한다. Headless 모드로 대량 데이터 생성이나 자동화에 적합하다.
+GUI 없이 Python 스크립트를 직접 실행합니다. Headless 모드로 대량 데이터 생성이나 자동화에 적합합니다.
 
 ```bash
 cd ~/workspace/IsaacSim
@@ -104,7 +104,7 @@ python standalone_examples/api/isaacsim.robot.manipulators.examples/franka/follo
 
 ### 3. Isaac Lab CLI
 
-Isaac Lab의 `isaaclab.sh` wrapper를 통해 학습/평가를 실행한다. `06~08` 섹션이 이 방식이다.
+Isaac Lab의 `isaaclab.sh` wrapper를 통해 학습/평가를 실행합니다. `06~08` 섹션이 이 방식입니다.
 
 ```bash
 cd ~/workspace/IsaacLab
@@ -139,24 +139,24 @@ cd ~/workspace/IsaacLab
 ./isaaclab.sh -p -c "import isaaclab; print(isaaclab.__version__)"
 ```
 
-자세한 환경 구축 및 트러블슈팅은 [SETUP.md](./SETUP.md)를 참고한다.
+자세한 환경 구축 및 트러블슈팅은 [SETUP.md](./SETUP.md)를 참고합니다.
 
 ## 학습 로드맵
 
 ### Phase 1: Isaac Sim 기초 이해
-`01-isaacsim-basics/` → USD 씬 구조, PhysX 물리 설정, Articulation API, OmniGraph를 익힌다.
+`01-isaacsim-basics/` → USD 씬 구조, PhysX 물리 설정, Articulation API, OmniGraph를 익힙니다.
 
 ### Phase 2: 로봇 제어 패턴
-`02-isaacsim-manipulation/` + `03-isaacsim-locomotion/` → Franka IK 제어, Cortex behavior tree, ONNX 정책 배포, RRT 경로 계획 등 실제 로봇 제어 패턴을 분석한다.
+`02-isaacsim-manipulation/` + `03-isaacsim-locomotion/` → Franka IK 제어, Cortex behavior tree, ONNX 정책 배포, RRT 경로 계획 등 실제 로봇 제어 패턴을 분석합니다.
 
 ### Phase 3: 시스템 통합
-`04-isaacsim-multirobot/` + `05-isaacsim-sensors/` → 다중 로봇 협업, 센서 데이터 파이프라인을 학습한다.
+`04-isaacsim-multirobot/` + `05-isaacsim-sensors/` → 다중 로봇 협업, 센서 데이터 파이프라인을 학습합니다.
 
 ### Phase 4: 강화학습 환경 설계
-`06-isaaclab-classic/` → CartPole로 Direct vs Manager-Based 패러다임을 비교한다. Ant, Humanoid로 복잡한 환경 구조를 분석한다.
+`06-isaaclab-classic/` → CartPole로 Direct vs Manager-Based 패러다임을 비교합니다. Ant, Humanoid로 복잡한 환경 구조를 분석합니다.
 
 ### Phase 5: 실전 RL 학습
-`07-isaaclab-locomotion/` + `08-isaaclab-manipulation/` → 실제 로봇(ANYmal, H1, Go2, Franka, Shadow Hand) 환경에서 학습 파이프라인을 분석한다.
+`07-isaaclab-locomotion/` + `08-isaaclab-manipulation/` → 실제 로봇(ANYmal, H1, Go2, Franka, Shadow Hand) 환경에서 학습 파이프라인을 분석합니다.
 
 ### 부록
 `09-reference/` → Isaac Sim vs Lab 아키텍처, Direct vs Manager 비교, RL 프레임워크(RSL-RL/SKRL/SB3) 비교, 공통 트러블슈팅.
@@ -175,7 +175,7 @@ cd ~/workspace/IsaacLab
 
 ## 기여
 
-각 데모 폴더의 README는 아래 구조를 따른다:
+각 데모 폴더의 README는 아래 구조를 따릅니다:
 - **Overview**: 데모의 목적과 핵심 개념을 기술적으로 요약
 - **Architecture**: 클래스 계층, 메서드 호출 흐름, 주요 컴포넌트 상호작용
 - **Source Files**: 파일별 역할 테이블

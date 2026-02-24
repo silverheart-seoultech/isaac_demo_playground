@@ -2,9 +2,9 @@
 
 ## Overview
 
-Isaac Sim의 Camera 센서를 사용하여 RGB 이미지, depth map, motion vector를 캡처하고, 2D↔3D 좌표 변환(projection/backprojection)을 수행하는 예제. 256×256 해상도, 20Hz 주기로 동작하며, `matplotlib`으로 캡처 결과를 저장한다.
+Isaac Sim의 Camera 센서를 사용하여 RGB 이미지, depth map, motion vector를 캡처하고, 2D↔3D 좌표 변환(projection/backprojection)을 수행하는 예제. 256×256 해상도, 20Hz 주기로 동작하며, `matplotlib`으로 캡처 결과를 저장합니다.
 
-Camera 센서는 Isaac Sim의 Hydra 렌더링 파이프라인을 통해 동작하며, USD Camera prim으로 정의된다. RL 환경에서 vision-based policy의 observation으로 활용하거나, synthetic data generation 파이프라인의 핵심 컴포넌트로 사용된다.
+Camera 센서는 Isaac Sim의 Hydra 렌더링 파이프라인을 통해 동작하며, USD Camera prim으로 정의됩니다. RL 환경에서 vision-based policy의 observation으로 활용하거나, synthetic data generation 파이프라인의 핵심 컴포넌트로 사용됩니다.
 
 ## Architecture
 
@@ -60,9 +60,9 @@ camera = Camera(
 )
 ```
 
-**`frequency=20`**: 물리 시뮬레이션 주파수와 독립적으로, 카메라 이미지는 20Hz로 캡처된다. 물리가 더 빈번하게 실행되어도 카메라 데이터는 초당 20프레임만 갱신된다. 이는 실제 카메라의 프레임 레이트를 모사한다.
+**`frequency=20`**: 물리 시뮬레이션 주파수와 독립적으로, 카메라 이미지는 20Hz로 캡처됩니다. 물리가 더 빈번하게 실행되어도 카메라 데이터는 초당 20프레임만 갱신됩니다. 이는 실제 카메라의 프레임 레이트를 모사합니다.
 
-**`orientation`**: Euler 각도 `[0, 90, 0]`는 pitch 90° 회전으로, 카메라가 정면 대신 아래를 향한다. z=25m 높이에서 하방을 보는 bird's-eye view 구성.
+**`orientation`**: Euler 각도 `[0, 90, 0]`는 pitch 90° 회전으로, 카메라가 정면 대신 아래를 향합니다. z=25m 높이에서 하방을 보는 bird's-eye view 구성.
 
 ### 초기화 순서 (중요)
 
@@ -71,7 +71,7 @@ my_world.reset()         # 1. World 초기화
 camera.initialize()      # 2. Camera 초기화 (반드시 reset 후)
 ```
 
-`camera.initialize()`는 `world.reset()` **이후에** 호출해야 한다. `reset()`이 PhysX와 렌더링 파이프라인을 초기화하며, 그 후에 Camera가 렌더링 Annotator에 연결된다.
+`camera.initialize()`는 `world.reset()` **이후에** 호출해야 합니다. `reset()`이 PhysX와 렌더링 파이프라인을 초기화하며, 그 후에 Camera가 렌더링 Annotator에 연결됩니다.
 
 ### 데이터 타입
 
@@ -93,7 +93,7 @@ rgba = camera.get_rgba()          # shape (256, 256, 4)
 rgb = rgba[:, :, :3]              # alpha 채널 제거
 ```
 
-**Motion Vector**: 각 픽셀의 이전 프레임 대비 2D 이동량. optical flow의 ground truth로 활용할 수 있다. `add_motion_vectors_to_frame()`으로 명시적 활성화가 필요하다.
+**Motion Vector**: 각 픽셀의 이전 프레임 대비 2D 이동량. optical flow의 ground truth로 활용할 수 있습니다. `add_motion_vectors_to_frame()`으로 명시적 활성화가 필요합니다.
 
 ### 2D ↔ 3D 좌표 변환
 
@@ -113,11 +113,11 @@ points_3d = camera.get_world_points_from_image_coords(
 # 출력: world 좌표 (N, 3)
 ```
 
-**Projection (3D → 2D)**: 카메라의 intrinsic matrix(focal length, principal point)와 extrinsic matrix(position, orientation)를 사용하여 world 좌표를 픽셀 좌표로 변환한다.
+**Projection (3D → 2D)**: 카메라의 intrinsic matrix(focal length, principal point)와 extrinsic matrix(position, orientation)를 사용하여 world 좌표를 픽셀 좌표로 변환합니다.
 
-**Backprojection (2D → 3D)**: 픽셀 좌표 + depth 값으로 world 좌표를 복원한다. depth가 필요한 이유는 단일 픽셀이 3D 공간의 ray를 나타내므로, 깊이 정보 없이는 고유한 3D 점을 결정할 수 없기 때문이다.
+**Backprojection (2D → 3D)**: 픽셀 좌표 + depth 값으로 world 좌표를 복원합니다. depth가 필요한 이유는 단일 픽셀이 3D 공간의 ray를 나타내므로, 깊이 정보 없이는 고유한 3D 점을 결정할 수 없기 때문입니다.
 
-**depth 값 `[24.94, 24.9]`**: 카메라가 z=25m에 있고 큐브가 z≈0m에 있으므로, depth는 약 25m. 정확한 값은 큐브의 높이에 따라 미세하게 다르다.
+**depth 값 `[24.94, 24.9]`**: 카메라가 z=25m에 있고 큐브가 z≈0m에 있으므로, depth는 약 25m. 정확한 값은 큐브의 높이에 따라 미세하게 다릅니다.
 
 ### 씬 구성 — 동적 오브젝트
 
@@ -150,7 +150,7 @@ if (i + 1) % 100 == 0:    # 100 프레임마다
     plt.savefig(f"camera.frame{i:03d}.png")
 ```
 
-매 100 물리 스텝마다(≈5초 간격, 20Hz 카메라 기준) PNG 파일로 저장한다. `matplotlib`을 사용하는 간단한 방식이지만, 대규모 데이터 수집에서는 `cv2.imwrite()`나 Isaac Sim의 Replicator를 사용하는 것이 효율적이다.
+매 100 물리 스텝마다(≈5초 간격, 20Hz 카메라 기준) PNG 파일로 저장합니다. `matplotlib`을 사용하는 간단한 방식이지만, 대규모 데이터 수집에서는 `cv2.imwrite()`나 Isaac Sim의 Replicator를 사용하는 것이 효율적입니다.
 
 ## 실행 방법
 
@@ -165,7 +165,7 @@ python standalone_examples/api/isaacsim.sensors.camera/camera.py --disable_outpu
 python standalone_examples/api/isaacsim.sensors.camera/camera.py --test
 ```
 
-실행 후 현재 디렉토리에 `camera.frame099.png`, `camera.frame199.png` 등의 파일이 생성된다.
+실행 후 현재 디렉토리에 `camera.frame099.png`, `camera.frame199.png` 등의 파일이 생성됩니다.
 
 ## RL 환경에서의 활용
 
@@ -185,10 +185,10 @@ tiled_camera = TiledCameraCfg(
 )
 ```
 
-`TiledCamera`는 4096+ 환경에서 동시에 카메라 렌더링을 수행하는 GPU 가속 버전이다. 각 환경의 카메라 이미지를 single batch로 처리하여 대규모 병렬 vision-based RL을 가능하게 한다.
+`TiledCamera`는 4096+ 환경에서 동시에 카메라 렌더링을 수행하는 GPU 가속 버전입니다. 각 환경의 카메라 이미지를 single batch로 처리하여 대규모 병렬 vision-based RL을 가능하게 합니다.
 
 ## Further Reading
 
 - **Camera 소스**: `~/workspace/IsaacSim/standalone_examples/api/isaacsim.sensors.camera/camera.py`
 - **Camera 클래스**: `~/workspace/IsaacSim/exts/isaacsim.sensors.camera/`
-- **Replicator (대규모 데이터 생성)**: Isaac Sim Replicator는 Camera 데이터를 대량으로 수집하고 다양한 augmentation을 적용하는 전용 파이프라인이다.
+- **Replicator (대규모 데이터 생성)**: Isaac Sim Replicator는 Camera 데이터를 대량으로 수집하고 다양한 augmentation을 적용하는 전용 파이프라인입니다.

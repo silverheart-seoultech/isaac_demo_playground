@@ -2,7 +2,7 @@
 
 ## Overview
 
-OmniGraph를 사용한 선언적 데이터플로우 프로그래밍 패턴을 시연한다. Python 스크립트 대신 노드 그래프로 키보드 입력 → 수학 연산 → Prim 속성 변경 파이프라인을 구성한다. A키로 큐브를 확대하고 D키로 축소하는 간단한 상호작용을 OmniGraph 노드만으로 구현한다.
+OmniGraph를 사용한 선언적 데이터플로우 프로그래밍 패턴을 시연합니다. Python 스크립트 대신 노드 그래프로 키보드 입력 → 수학 연산 → Prim 속성 변경 파이프라인을 구성합니다. A키로 큐브를 확대하고 D키로 축소하는 간단한 상호작용을 OmniGraph 노드만으로 구현합니다.
 
 ## Architecture
 
@@ -80,12 +80,12 @@ og.Controller.edit(
 )
 ```
 
-`og.Controller.edit()`은 선언적으로 그래프를 구성한다:
+`og.Controller.edit()`은 선언적으로 그래프를 구성합니다:
 1. `CREATE_NODES`: 노드 인스턴스 생성 (이름, 타입)
 2. `SET_VALUES`: 노드의 입력 파라미터 설정
 3. `CONNECT`: 노드 간 데이터 연결 (output → input)
 
-`evaluator_name="push"` 는 push evaluation 모드로, 입력이 변경될 때만 downstream 노드가 재평가된다.
+`evaluator_name="push"` 는 push evaluation 모드로, 입력이 변경될 때만 downstream 노드가 재평가됩니다.
 
 ### Python 스크립트 vs OmniGraph
 
@@ -97,7 +97,7 @@ og.Controller.edit(
 | 재사용 | 코드 복사 | 그래프 에셋(.json)으로 저장/로드 |
 | 성능 | Python GIL 제약 | C++ 백엔드, 병렬 평가 가능 |
 
-OmniGraph는 반복적인 데이터 파이프라인(센서 처리, 로봇 행동 트리)에 적합하다. 복잡한 분기 로직이 필요한 경우에는 Python 스크립트가 더 직관적이다.
+OmniGraph는 반복적인 데이터 파이프라인(센서 처리, 로봇 행동 트리)에 적합합니다. 복잡한 분기 로직이 필요한 경우에는 Python 스크립트가 더 직관적입니다.
 
 ## 실행 방법
 
@@ -116,11 +116,11 @@ cd ~/workspace/IsaacSim
 - **Dirty Push**: Push와 유사하나, 변경되지 않은 노드는 건너뜀. 대규모 그래프에서 성능 최적화.
 - **Execution**: 명시적 실행 순서 제어. Action Graph에서 사용.
 
-이 예제는 Push evaluator를 사용하여 키보드 입력이 감지될 때만 그래프가 평가된다.
+이 예제는 Push evaluator를 사용하여 키보드 입력이 감지될 때만 그래프가 평가됩니다.
 
 ### Prim Attribute 접근
 
-`ReadPrimAttribute`/`WritePrimAttribute` 노드는 USD Prim의 속성에 직접 접근한다. `xformOp:scale`은 USD의 Transform Operation으로, Prim의 스케일링을 제어한다. 이 방식으로 OmniGraph에서 씬의 모든 속성을 동적으로 읽고 쓸 수 있다.
+`ReadPrimAttribute`/`WritePrimAttribute` 노드는 USD Prim의 속성에 직접 접근합니다. `xformOp:scale`은 USD의 Transform Operation으로, Prim의 스케일링을 제어합니다. 이 방식으로 OmniGraph에서 씬의 모든 속성을 동적으로 읽고 쓸 수 있습니다.
 
 ## Further Reading
 

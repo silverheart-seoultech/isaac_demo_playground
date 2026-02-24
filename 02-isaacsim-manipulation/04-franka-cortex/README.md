@@ -2,9 +2,9 @@
 
 ## Overview
 
-Isaac Sim의 **Cortex** 행동 프레임워크를 사용하여 Franka가 큐브를 조작하는 데모. Cortex는 **Decider Network** 패턴으로 로봇의 행동을 정의하며, 상태 머신(state machine)과 행동 트리(behavior tree)의 장점을 결합한 의사결정 구조다.
+Isaac Sim의 **Cortex** 행동 프레임워크를 사용하여 Franka가 큐브를 조작하는 데모. Cortex는 **Decider Network** 패턴으로 로봇의 행동을 정의하며, 상태 머신(state machine)과 행동 트리(behavior tree)의 장점을 결합한 의사결정 구조입니다.
 
-RMPflow/RRT가 모션 레벨의 제어를 담당한다면, Cortex는 **태스크 레벨의 의사결정**을 담당한다: "어떤 큐브를 먼저 집을까?", "어디에 놓을까?", "다음 행동은 무엇인가?"를 결정한다.
+RMPflow/RRT가 모션 레벨의 제어를 담당합니다면, Cortex는 **태스크 레벨의 의사결정**을 담당합니다: "어떤 큐브를 먼저 집을까?", "어디에 놓을까?", "다음 행동은 무엇인가?"를 결정합니다.
 
 ## Architecture
 
@@ -52,7 +52,7 @@ async def load_behavior(self, behavior):
     world.add_decider_network(self.decider_network)
 ```
 
-`load_behavior_module()`은 Python 모듈을 동적으로 로드하여 `make_decider_network()` 팩토리 함수를 호출한다. 각 behavior 모듈은 독립적인 의사결정 로직을 구현하며, 런타임에 교체할 수 있다.
+`load_behavior_module()`은 Python 모듈을 동적으로 로드하여 `make_decider_network()` 팩토리 함수를 호출합니다. 각 behavior 모듈은 독립적인 의사결정 로직을 구현하며, 런타임에 교체할 수 있습니다.
 
 ### CortexWorld 통합
 
@@ -72,9 +72,9 @@ def setup_scene(self):
         self.robot.register_obstacle(obj)    # 충돌 회피 대상으로 등록
 ```
 
-**`CortexFranka`**: 일반 `Franka`와 달리, Cortex 전용 래퍼로 `register_obstacle()`을 통해 조작/회피 대상을 등록할 수 있다.
+**`CortexFranka`**: 일반 `Franka`와 달리, Cortex 전용 래퍼로 `register_obstacle()`을 통해 조작/회피 대상을 등록할 수 있습니다.
 
-**큐브 배치**: 0.3m ~ 0.7m 범위에서 등간격으로 4개 큐브를 배치한다. 크기 5.15cm의 DynamicCuboid로, 물리적으로 잡고 이동할 수 있다.
+**큐브 배치**: 0.3m ~ 0.7m 범위에서 등간격으로 4개 큐브를 배치합니다. 크기 5.15cm의 DynamicCuboid로, 물리적으로 잡고 이동할 수 있습니다.
 
 ### 의사결정 모니터링
 
@@ -92,7 +92,7 @@ def _on_monitor_update(self, context):
     ])
 ```
 
-Decider Network의 현재 상태(어떤 행동을 실행 중인지, 의사결정 스택)를 UI에 실시간으로 표시한다. `decision_stack`은 중첩된 행동의 계층을 들여쓰기로 시각화한다.
+Decider Network의 현재 상태(어떤 행동을 실행 중인지, 의사결정 스택)를 UI에 실시간으로 표시합니다. `decision_stack`은 중첩된 행동의 계층을 들여쓰기로 시각화합니다.
 
 ### Physics Step
 
@@ -101,7 +101,7 @@ def _on_physics_step(self, step_size):
     world.step(False, False)    # physics=False, render=False
 ```
 
-Cortex는 `CortexWorld.step()` 내부에서 decider network를 갱신하고, 결정된 행동에 따른 모션 명령을 생성한다. `(False, False)` 파라미터는 물리/렌더링은 외부에서 관리됨을 의미한다.
+Cortex는 `CortexWorld.step()` 내부에서 decider network를 갱신하고, 결정된 행동에 따른 모션 명령을 생성합니다. `(False, False)` 파라미터는 물리/렌더링은 외부에서 관리됨을 의미합니다.
 
 ## 실행 방법
 

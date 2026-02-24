@@ -93,7 +93,7 @@ cd ~/workspace/IsaacLab
 ./isaaclab.sh -p path/to/script.py
 ```
 
-Isaac Sim은 자체 Python 인터프리터를 사용한다. conda 환경의 Python이 아닌, Isaac Sim 디렉토리의 `python` 또는 `isaac-sim.sh` 래퍼를 사용해야 한다.
+Isaac Sim은 자체 Python 인터프리터를 사용합니다. conda 환경의 Python이 아닌, Isaac Sim 디렉토리의 `python` 또는 `isaac-sim.sh` 래퍼를 사용해야 합니다.
 
 ## Isaac Lab 공통
 
@@ -175,7 +175,7 @@ cd ~/workspace/IsaacLab
 conda activate env_isaaclab
 ```
 
-`isaaclab.sh`는 내부적으로 Isaac Sim의 Python 환경을 사용하므로, conda 환경과 충돌할 수 있다. `env_isaaclab` 환경이 이미 Isaac Lab용으로 구성되어 있다면 해당 환경을 활성화하고 사용한다.
+`isaaclab.sh`는 내부적으로 Isaac Sim의 Python 환경을 사용하므로, conda 환경과 충돌할 수 있습니다. `env_isaaclab` 환경이 이미 Isaac Lab용으로 구성되어 있다면 해당 환경을 활성화하고 사용합니다.
 
 ### 10. Pretrained checkpoint 다운로드 실패
 
@@ -221,7 +221,7 @@ my_world.reset()          # 먼저 World 초기화
 camera.initialize()       # 그 후 Camera 초기화
 ```
 
-또는 첫 몇 프레임은 렌더링 파이프라인이 아직 준비되지 않아 검은색일 수 있다. 수 프레임 후 정상 이미지가 나오는지 확인.
+또는 첫 몇 프레임은 렌더링 파이프라인이 아직 준비되지 않아 검은색일 수 있습니다. 수 프레임 후 정상 이미지가 나오는지 확인.
 
 ## 성능 최적화
 
@@ -246,4 +246,4 @@ world.step(render=True)   # 렌더링 포함 — 느리지만 시각화 가능
 world.step(render=False)  # 물리만 — 빠름, 데이터 수집에 적합
 ```
 
-Camera/LiDAR 센서를 사용할 때는 `render=True`가 필요하다. 물리 데이터만 필요한 경우 `render=False`로 성능을 향상시킬 수 있다.
+Camera/LiDAR 센서를 사용할 때는 `render=True`가 필요합니다. 물리 데이터만 필요한 경우 `render=False`로 성능을 향상시킬 수 있습니다.

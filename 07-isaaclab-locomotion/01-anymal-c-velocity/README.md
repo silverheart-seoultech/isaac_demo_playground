@@ -2,9 +2,9 @@
 
 ## Overview
 
-ANYmal-C 사족보행 로봇의 velocity tracking 환경. Isaac Lab의 locomotion velocity 공통 베이스(`LocomotionVelocityRoughEnvCfg`)를 상속하며, 로봇 에셋만 ANYmal-C로 교체한 최소 구성이다. 13종의 로봇이 동일한 베이스 config를 공유하는 구조에서 ANYmal-C는 가장 기본적인 구성으로, velocity locomotion 파이프라인의 레퍼런스 구현이라 할 수 있다.
+ANYmal-C 사족보행 로봇의 velocity tracking 환경. Isaac Lab의 locomotion velocity 공통 베이스(`LocomotionVelocityRoughEnvCfg`)를 상속하며, 로봇 에셋만 ANYmal-C로 교체한 최소 구성입니다. 13종의 로봇이 동일한 베이스 config를 공유하는 구조에서 ANYmal-C는 가장 기본적인 구성으로, velocity locomotion 파이프라인의 레퍼런스 구현이라 할 수 있습니다.
 
-Rough terrain과 Flat terrain 두 가지 변형이 있으며, RSL-RL/RL Games/SKRL 세 가지 학습 프레임워크를 모두 지원한다. Symmetry augmentation을 활용한 변형도 제공된다.
+Rough terrain과 Flat terrain 두 가지 변형이 있으며, RSL-RL/RL Games/SKRL 세 가지 학습 프레임워크를 모두 지원합니다. Symmetry augmentation을 활용한 변형도 제공됩니다.
 
 ## Architecture
 
@@ -25,7 +25,7 @@ ManagerBasedRLEnvCfg
                     └── scene.robot = ANYMAL_C_CFG  ← 로봇만 교체
 ```
 
-ANYmal-C config는 베이스를 있는 그대로 사용하며, `__post_init__`에서 `self.scene.robot = ANYMAL_C_CFG`만 설정한다. 이는 베이스 config가 ANYmal-C를 기준으로 설계되었기 때문이다. 다른 로봇(H1, Go2 등)은 이 베이스에서 reward, event, command 등을 추가로 커스터마이징한다.
+ANYmal-C config는 베이스를 있는 그대로 사용하며, `__post_init__`에서 `self.scene.robot = ANYMAL_C_CFG`만 설정합니다. 이는 베이스 config가 ANYmal-C를 기준으로 설계되었기 때문입니다. 다른 로봇(H1, Go2 등)은 이 베이스에서 reward, event, command 등을 추가로 커스터마이징합니다.
 
 ### Velocity Command 시스템
 
@@ -42,7 +42,7 @@ UniformVelocityCommandCfg
     └── heading_control_stiffness: 0.5 ← heading → ang_vel 변환 게인
 ```
 
-`heading_command=True`이면 목표 heading을 설정하고, heading error에 stiffness를 곱하여 `ang_vel_z`를 자동 생성한다. 이는 방향 추종을 더 자연스럽게 만든다.
+`heading_command=True`이면 목표 heading을 설정하고, heading error에 stiffness를 곱하여 `ang_vel_z`를 자동 생성합니다. 이는 방향 추종을 더 자연스럽게 만듭니다.
 
 ## Source Files
 
@@ -86,7 +86,7 @@ class PolicyCfg(ObsGroup):
 
 **총 observation 차원**: 3+3+3+3+12+12+12+187 = **235D** (rough terrain), height_scan 제외 시 48D (flat terrain)
 
-**Noise 설계 근거**: 각 term에 uniform noise를 주입하여 sim-to-real transfer 시 센서 노이즈에 대한 robustness를 확보한다. `joint_vel`의 noise가 ±1.5로 가장 큰 이유는 실제 로봇의 관절 속도 추정이 가장 부정확하기 때문이다. `enable_corruption = True`는 학습 시 활성화, 평가 시 비활성화한다.
+**Noise 설계 근거**: 각 term에 uniform noise를 주입하여 sim-to-real transfer 시 센서 노이즈에 대한 robustness를 확보합니다. `joint_vel`의 noise가 ±1.5로 가장 큰 이유는 실제 로봇의 관절 속도 추정이 가장 부정확하기 때문입니다. `enable_corruption = True`는 학습 시 활성화, 평가 시 비활성화합니다.
 
 ### Reward Decomposition
 
@@ -148,7 +148,7 @@ reset_robot_joints: default의 0.5~1.5배
 push_robot:        10~15초마다 ±0.5 m/s velocity push
 ```
 
-**설계 근거**: Startup randomization은 물리 파라미터(마찰, 질량, CoM)를 변경하여 다양한 로봇 개체를 시뮬레이션한다. 64개 마찰 bucket으로 물리 엔진의 효율을 유지하면서 다양성을 확보한다. Interval push는 외란(disturbance) 복구 능력을 학습시킨다.
+**설계 근거**: Startup randomization은 물리 파라미터(마찰, 질량, CoM)를 변경하여 다양한 로봇 개체를 시뮬레이션합니다. 64개 마찰 bucket으로 물리 엔진의 효율을 유지하면서 다양성을 확보합니다. Interval push는 외란(disturbance) 복구 능력을 학습시킵니다.
 
 ### 물리 설정
 
@@ -169,7 +169,7 @@ class CurriculumCfg:
     terrain_levels = CurrTerm(func=mdp.terrain_levels_vel)
 ```
 
-`terrain_levels_vel`은 로봇의 velocity tracking 성능에 따라 terrain 난이도를 자동 조절한다. 추적 오차가 작으면 더 어려운 terrain으로 이동하고, 크면 쉬운 terrain으로 되돌린다. 이 curriculum은 `ROUGH_TERRAINS_CFG`의 terrain generator와 연동되어, boxes/stairs/random_rough 등 다양한 sub-terrain에서 점진적으로 학습한다.
+`terrain_levels_vel`은 로봇의 velocity tracking 성능에 따라 terrain 난이도를 자동 조절합니다. 추적 오차가 작으면 더 어려운 terrain으로 이동하고, 크면 쉬운 terrain으로 되돌린다. 이 curriculum은 `ROUGH_TERRAINS_CFG`의 terrain generator와 연동되어, boxes/stairs/random_rough 등 다양한 sub-terrain에서 점진적으로 학습합니다.
 
 ### Height Scanner 설정
 
@@ -182,7 +182,7 @@ height_scanner = RayCasterCfg(
 )
 ```
 
-로봇 base에서 하방으로 ray를 쏘아 지형 높이를 측정한다. 1.6m × 1.0m 영역을 0.1m 해상도로 스캔하여 (16+1) × (10+1) = 187개 높이 포인트를 생성한다. `ray_alignment="yaw"`는 로봇의 yaw 방향으로만 정렬하여 roll/pitch 변화에 독립적인 지형 정보를 제공한다.
+로봇 base에서 하방으로 ray를 쏘아 지형 높이를 측정합니다. 1.6m × 1.0m 영역을 0.1m 해상도로 스캔하여 (16+1) × (10+1) = 187개 높이 포인트를 생성합니다. `ray_alignment="yaw"`는 로봇의 yaw 방향으로만 정렬하여 roll/pitch 변화에 독립적인 지형 정보를 제공합니다.
 
 ## 실행 방법
 
@@ -243,11 +243,11 @@ cd ~/workspace/IsaacLab
 | GAE (λ) | 0.95 | 0.95 |
 | Desired KL | 0.01 | 0.01 |
 
-Rough terrain은 더 큰 네트워크([512,256,128])와 더 긴 학습(1500 iter)을 사용한다. Height scan observation(187D)이 추가되므로 입력 차원이 크고 terrain 다양성에 대응해야 하기 때문이다. Flat terrain은 height scan이 없어 observation이 48D로 줄어들므로 [128,128,128]으로 충분하다.
+Rough terrain은 더 큰 네트워크([512,256,128])와 더 긴 학습(1500 iter)을 사용합니다. Height scan observation(187D)이 추가되므로 입력 차원이 크고 terrain 다양성에 대응해야 하기 때문입니다. Flat terrain은 height scan이 없어 observation이 48D로 줄어들므로 [128,128,128]으로 충분합니다.
 
 ### Symmetry Augmentation
 
-ANYmal-C는 좌우 대칭 구조를 가지므로, 학습 데이터를 좌우 반전하여 augmentation할 수 있다. `compute_symmetric_states` 함수가 observation과 action의 좌우 대칭 변환을 수행하며, 이를 통해 학습 효율을 약 2배 향상시킬 수 있다.
+ANYmal-C는 좌우 대칭 구조를 가지므로, 학습 데이터를 좌우 반전하여 augmentation할 수 있습니다. `compute_symmetric_states` 함수가 observation과 action의 좌우 대칭 변환을 수행하며, 이를 통해 학습 효율을 약 2배 향상시킬 수 있습니다.
 
 ## Comparison: ANYmal-C vs H1 vs Go2
 

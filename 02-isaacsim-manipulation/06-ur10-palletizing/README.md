@@ -2,9 +2,9 @@
 
 ## Overview
 
-Universal Robots UR10이 나사(screw)를 빈(bin)에서 집어 다른 빈으로 옮기는 pick-and-place 데모. 핵심 특징은 **동적 오브젝트 생성**: 작업 중간에 20개의 나사를 런타임에 추가하는 패턴을 보여준다.
+Universal Robots UR10이 나사(screw)를 빈(bin)에서 집어 다른 빈으로 옮기는 pick-and-place 데모. 핵심 특징은 **동적 오브젝트 생성**: 작업 중간에 20개의 나사를 런타임에 추가하는 패턴을 보여줍니다.
 
-Franka 기반 데모들과 달리 UR10(6 DOF 산업용 로봇)과 `PickPlaceController`를 사용하며, end-effector orientation과 offset을 명시적으로 지정한다.
+Franka 기반 데모들과 달리 UR10(6 DOF 산업용 로봇)과 `PickPlaceController`를 사용하며, end-effector orientation과 offset을 명시적으로 지정합니다.
 
 ## Architecture
 
@@ -49,9 +49,9 @@ def _on_fill_bin_physics_step(self, step_size):
     )
 ```
 
-**`end_effector_offset`**: EE 좌표계에서의 오프셋 `[0, -0.098, 0.03]`m. 그리퍼 끝단과 EE 프레임 원점 사이의 물리적 차이를 보정한다.
+**`end_effector_offset`**: EE 좌표계에서의 오프셋 `[0, -0.098, 0.03]`m. 그리퍼 끝단과 EE 프레임 원점 사이의 물리적 차이를 보정합니다.
 
-**`end_effector_orientation`**: `[π, 0, π/2]` (Euler angles). 그리퍼가 아래를 향하도록(π = 180° 회전) 하고, z축 기준 90° 회전하여 빈 방향에 맞춘다.
+**`end_effector_orientation`**: `[π, 0, π/2]` (Euler angles). 그리퍼가 아래를 향하도록(π = 180° 회전) 하고, z축 기준 90° 회전하여 빈 방향에 맞춥니다.
 
 ### 동적 나사 생성
 
@@ -62,9 +62,9 @@ if not self._added_screws and self._controller.get_current_event() == 6 and not 
     self._added_screws = True
 ```
 
-Controller의 이벤트 번호 6(placing 완료)에서 일시 정지 → 20개 나사 추가 → 재개. 이 패턴은 시뮬레이션 중 환경을 동적으로 변경하는 방법을 보여준다.
+Controller의 이벤트 번호 6(placing 완료)에서 일시 정지 → 20개 나사 추가 → 재개. 이 패턴은 시뮬레이션 중 환경을 동적으로 변경하는 방법을 보여줍니다.
 
-**이벤트 기반 제어**: `PickPlaceController`는 내부 상태 머신의 현재 이벤트를 `get_current_event()`로 노출한다. 외부에서 특정 이벤트에 맞춰 환경을 조작할 수 있다.
+**이벤트 기반 제어**: `PickPlaceController`는 내부 상태 머신의 현재 이벤트를 `get_current_event()`로 노출합니다. 외부에서 특정 이벤트에 맞춰 환경을 조작할 수 있습니다.
 
 ### 완료 감지
 
@@ -73,7 +73,7 @@ if self._controller.is_done():
     self._world.pause()
 ```
 
-모든 pick-place 사이클이 완료되면 시뮬레이션을 자동으로 일시정지한다.
+모든 pick-place 사이클이 완료되면 시뮬레이션을 자동으로 일시정지합니다.
 
 ## 실행 방법
 

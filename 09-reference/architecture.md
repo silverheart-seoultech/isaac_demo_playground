@@ -47,7 +47,7 @@ SimulationApp(config) → World → scene.add() → world.reset()
 
 ### BaseSample 라이프사이클
 
-모든 Interactive 데모는 `BaseSample`을 상속한다:
+모든 Interactive 데모는 `BaseSample`을 상속합니다:
 
 ```python
 class MyDemo(BaseSample):
@@ -74,7 +74,7 @@ class MyDemo(BaseSample):
 
 ### Task 시스템
 
-Isaac Sim의 Task는 **씬 구성 + observation 제공**을 캡슐화한다:
+Isaac Sim의 Task는 **씬 구성 + observation 제공**을 캡슐화합니다:
 
 ```python
 class Stacking(BaseTask):
@@ -88,7 +88,7 @@ class Stacking(BaseTask):
         """robot_name, cube_names 등 Task 파라미터"""
 ```
 
-이 패턴은 동일한 Task를 여러 번 인스턴스화하여 병렬 실행할 수 있게 한다 (예: RoboFactory의 4x Stacking).
+이 패턴은 동일한 Task를 여러 번 인스턴스화하여 병렬 실행할 수 있게 합니다 (예: RoboFactory의 4x Stacking).
 
 ## Isaac Lab — RL 학습 프레임워크
 
@@ -123,7 +123,7 @@ isaaclab.sh -p train.py --task Isaac-Cartpole-Direct-v0 --num_envs 4096
 
 ### 병렬 환경 (Vectorized)
 
-Isaac Lab의 환경은 단일 PhysX scene에서 수천 개의 환경을 동시 실행한다:
+Isaac Lab의 환경은 단일 PhysX scene에서 수천 개의 환경을 동시 실행합니다:
 
 ```
 PhysX Scene
@@ -133,7 +133,7 @@ PhysX Scene
 └── /World/envs/env_4095/Robot, /World/envs/env_4095/Object, ...
 ```
 
-모든 환경의 joint position, velocity, force는 **단일 GPU tensor**로 관리된다. Isaac Sim의 Task 기반 병렬화(RoboFactory)가 CPU loop으로 4개를 처리하는 것과 달리, Isaac Lab은 GPU에서 4096+ 환경을 배치 연산으로 처리한다.
+모든 환경의 joint position, velocity, force는 **단일 GPU tensor**로 관리됩니다. Isaac Sim의 Task 기반 병렬화(RoboFactory)가 CPU loop으로 4개를 처리하는 것과 달리, Isaac Lab은 GPU에서 4096+ 환경을 배치 연산으로 처리합니다.
 
 ## Isaac Sim vs Isaac Lab 비교 요약
 

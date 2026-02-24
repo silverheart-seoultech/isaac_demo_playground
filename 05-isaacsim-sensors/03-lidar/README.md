@@ -2,9 +2,9 @@
 
 ## Overview
 
-Isaac Sim의 두 가지 LiDAR 구현인 **PhysX LiDAR**와 **RTX LiDAR**의 생성, 구성, 데이터 수집을 다루는 예제. PhysX LiDAR는 PhysX ray-cast 기반으로 동작하며, RTX LiDAR는 GPU ray-tracing 파이프라인(RTX)을 사용하여 더 현실적인 센서 시뮬레이션을 제공한다.
+Isaac Sim의 두 가지 LiDAR 구현인 **PhysX LiDAR**와 **RTX LiDAR**의 생성, 구성, 데이터 수집을 다루는 예제. PhysX LiDAR는 PhysX ray-cast 기반으로 동작하며, RTX LiDAR는 GPU ray-tracing 파이프라인(RTX)을 사용하여 더 현실적인 센서 시뮬레이션을 제공합니다.
 
-Extension 버전은 정적 환경에서 LiDAR 속성을 직접 설정하고 데이터를 시각화하며, Standalone 버전들은 Carter 이동 로봇에 LiDAR를 장착하고 주행하면서 depth/point cloud 데이터를 수집한다.
+Extension 버전은 정적 환경에서 LiDAR 속성을 직접 설정하고 데이터를 시각화하며, Standalone 버전들은 Carter 이동 로봇에 LiDAR를 장착하고 주행하면서 depth/point cloud 데이터를 수집합니다.
 
 ## Architecture
 
@@ -102,7 +102,7 @@ self.lidar.CreateDrawPointsAttr().Set(False)
 self.lidar.CreateDrawLinesAttr().Set(True)           # ray line 표시
 ```
 
-PhysX LiDAR는 USD의 `RangeSensorSchema`를 사용하여 정의한다. **각 attribute를 반드시 `Create`한 후 `Set`해야 한다** — attribute가 schema에 정의되어 있더라도 instance에서 생성하지 않으면 런타임 에러가 발생한다.
+PhysX LiDAR는 USD의 `RangeSensorSchema`를 사용하여 정의합니다. **각 attribute를 반드시 `Create`한 후 `Set`해야 합니다** — attribute가 schema에 정의되어 있더라도 instance에서 생성하지 않으면 런타임 에러가 발생합니다.
 
 ### PhysX LiDAR 파라미터 분석
 
@@ -116,7 +116,7 @@ PhysX LiDAR는 USD의 `RangeSensorSchema`를 사용하여 정의한다. **각 at
 | MaxRange = 100m | 최대 감지 거리 | 100m 이상은 무응답 |
 | RotationRate = 0.5Hz | 2초에 1회전 | 시각화를 위해 느리게 설정 |
 
-**총 ray 수**: 360 × 11 = 3,960 ray/revolution. 각 ray는 PhysX의 line trace(ray-cast)를 실행하여 충돌 거리를 반환한다.
+**총 ray 수**: 360 × 11 = 3,960 ray/revolution. 각 ray는 PhysX의 line trace(ray-cast)를 실행하여 충돌 거리를 반환합니다.
 
 ### PhysX LiDAR — Depth 데이터 변환
 
@@ -130,7 +130,7 @@ maxDepth = self.lidar.GetMaxRangeAttr().Get()
 distance_m = ray * maxDepth / 65535.0
 ```
 
-C++ 내부에서 depth는 uint16으로 저장된다. `[0, 65535]` 범위가 `[0, maxRange]`에 매핑되므로, 거리 해상도는 `maxRange / 65535 ≈ 0.0015m` (1.5mm)이다.
+C++ 내부에서 depth는 uint16으로 저장됩니다. `[0, 65535]` 범위가 `[0, maxRange]`에 매핑되므로, 거리 해상도는 `maxRange / 65535 ≈ 0.0015m` (1.5mm)입니다.
 
 ### PhysX LiDAR — Python API (Standalone)
 
@@ -146,7 +146,7 @@ my_lidar.add_point_cloud_data_to_frame()   # point cloud 활성화
 my_lidar.enable_visualization()             # viewport에 ray 표시
 ```
 
-`add_depth_data_to_frame()`, `add_point_cloud_data_to_frame()`은 필요한 데이터 타입만 선택적으로 활성화한다. 모든 데이터를 항상 계산하면 성능 오버헤드가 크기 때문이다.
+`add_depth_data_to_frame()`, `add_point_cloud_data_to_frame()`은 필요한 데이터 타입만 선택적으로 활성화합니다. 모든 데이터를 항상 계산하면 성능 오버헤드가 크기 때문입니다.
 
 ### RTX LiDAR — GPU Ray Tracing
 
@@ -176,9 +176,9 @@ my_lidar.enable_visualization()
 | 성능 | 빠름 (단순 collision) | 느림 (full ray-tracing) |
 | 데이터 추출 | `get_depth_data()` | Annotator 기반 |
 
-**`enable_motion_bvh=True`**: RTX LiDAR는 Bounding Volume Hierarchy(BVH) 가속 구조를 사용하여 ray-tracing을 효율화한다. 이 옵션을 켜지 않으면 RTX LiDAR가 정상 동작하지 않는다.
+**`enable_motion_bvh=True`**: RTX LiDAR는 Bounding Volume Hierarchy(BVH) 가속 구조를 사용하여 ray-tracing을 효율화합니다. 이 옵션을 켜지 않으면 RTX LiDAR가 정상 동작하지 않습니다.
 
-**`PandarXT_32_10hz`**: Hesai 社의 PandarXT-32 LiDAR를 모사한다. 32채널, 10Hz 회전 속도. USD 파일에 이미 센서 프로파일이 포함되어 있어 별도의 파라미터 설정이 불필요하다.
+**`PandarXT_32_10hz`**: Hesai 社의 PandarXT-32 LiDAR를 모사합니다. 32채널, 10Hz 회전 속도. USD 파일에 이미 센서 프로파일이 포함되어 있어 별도의 파라미터 설정이 불필요합니다.
 
 ### Carter 주행 패턴 (PhysX/RTX 공통)
 
@@ -192,7 +192,7 @@ WheeledRobot(wheel_dof_names=["joint_wheel_left", "joint_wheel_right"], ...)
 DifferentialController(wheel_radius=0.04295, wheel_base=0.4132)
 ```
 
-PhysX와 RTX 예제가 서로 다른 Carter 모델을 사용한다. wheel 파라미터(반지름, 축간 거리)가 크게 다르므로 주의.
+PhysX와 RTX 예제가 서로 다른 Carter 모델을 사용합니다. wheel 파라미터(반지름, 축간 거리)가 크게 다르므로 주의.
 
 ## 실행 방법
 

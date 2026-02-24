@@ -2,9 +2,9 @@
 
 ## Overview
 
-Isaac Lab에서 학습된 Spot 보행 정책(flat terrain)을 Isaac Sim GUI 환경에서 실시간 배포하는 데모. `SpotFlatTerrainPolicy` 클래스가 사전학습된 TorchScript 정책을 로드하고, 48차원 observation을 구성하여 12차원 관절 위치 action을 추론한다. 키보드 입력으로 전후/좌우/회전 명령을 실시간 제어할 수 있다.
+Isaac Lab에서 학습된 Spot 보행 정책(flat terrain)을 Isaac Sim GUI 환경에서 실시간 배포하는 데모. `SpotFlatTerrainPolicy` 클래스가 사전학습된 TorchScript 정책을 로드하고, 48차원 observation을 구성하여 12차원 관절 위치 action을 추론합니다. 키보드 입력으로 전후/좌우/회전 명령을 실시간 제어할 수 있습니다.
 
-이 데모는 **학습(training)이 아닌 배포(deployment)** 예제다. 정책은 이미 학습되어 `.pt` 파일로 제공되며, 시뮬레이션에서는 observation 구성 → 정책 추론 → action 적용의 inference 루프만 실행한다.
+이 데모는 **학습(training)이 아닌 배포(deployment)** 예제입니다. 정책은 이미 학습되어 `.pt` 파일로 제공되며, 시뮬레이션에서는 observation 구성 → 정책 추론 → action 적용의 inference 루프만 실행합니다.
 
 ## Architecture
 
@@ -108,11 +108,11 @@ def _compute_observation(self, command):
 | 24-35 | 12 | 관절 속도 | Joint |
 | 36-47 | 12 | 이전 action | - |
 
-**좌표 변환**: World frame의 속도/중력을 body frame으로 변환한다(`R_BI = R_IB.T`). 정책이 body-centric observation으로 학습되었기 때문에, 배포 시에도 동일한 변환을 적용해야 한다. 이는 로봇의 절대 위치/방향에 무관하게 상대적인 상태를 관찰하므로, 정책의 일반화 성능을 높인다.
+**좌표 변환**: World frame의 속도/중력을 body frame으로 변환합니다(`R_BI = R_IB.T`). 정책이 body-centric observation으로 학습되었기 때문에, 배포 시에도 동일한 변환을 적용해야 합니다. 이는 로봇의 절대 위치/방향에 무관하게 상대적인 상태를 관찰하므로, 정책의 일반화 성능을 높입니다.
 
-**관절 위치 오프셋**: `current_joint_pos - self.default_pos`로 기본 자세 대비 편차를 사용한다. 이는 정책이 "현재 위치"가 아닌 "기본 자세로부터의 이탈"을 학습하므로, default standing pose를 기준으로 보정 action을 출력하게 된다.
+**관절 위치 오프셋**: `current_joint_pos - self.default_pos`로 기본 자세 대비 편차를 사용합니다. 이는 정책이 "현재 위치"가 아닌 "기본 자세로부터의 이탈"을 학습하므로, default standing pose를 기준으로 보정 action을 출력하게 됩니다.
 
-**이전 action**: `_previous_action`을 observation에 포함하여 정책이 자신의 이전 출력을 참조할 수 있게 한다. 이는 action의 연속성을 유지하고 급격한 관절 변화(jerk)를 줄이는 데 기여한다.
+**이전 action**: `_previous_action`을 observation에 포함하여 정책이 자신의 이전 출력을 참조할 수 있게 합니다. 이는 action의 연속성을 유지하고 급격한 관절 변화(jerk)를 줄이는 데 기여합니다.
 
 ### Forward (Action 적용)
 
@@ -130,11 +130,11 @@ def forward(self, dt, command):
     self._policy_counter += 1
 ```
 
-**Decimation**: 물리 시뮬레이션은 500Hz로 실행되지만, 정책 추론은 `decimation` 스텝마다 1회만 수행한다. env YAML에서 지정된 decimation 값에 따라 실제 제어 주파수가 결정된다. 예를 들어 decimation=4이면 제어 주파수는 125Hz가 된다.
+**Decimation**: 물리 시뮬레이션은 500Hz로 실행되지만, 정책 추론은 `decimation` 스텝마다 1회만 수행합니다. env YAML에서 지정된 decimation 값에 따라 실제 제어 주파수가 결정됩니다. 예를 들어 decimation=4이면 제어 주파수는 125Hz가 됩니다.
 
-**Action Scale**: `action_scale = 0.2`로, 정책 출력(보통 [-1, 1] 범위)에 0.2를 곱하여 실제 관절 위치 오프셋을 계산한다. 최종 관절 위치는 `default_pos + action × 0.2`이 된다. 스케일이 작을수록 보수적인 움직임이 되므로, 안전한 보행을 보장한다.
+**Action Scale**: `action_scale = 0.2`로, 정책 출력(보통 [-1, 1] 범위)에 0.2를 곱하여 실제 관절 위치 오프셋을 계산합니다. 최종 관절 위치는 `default_pos + action × 0.2`이 됩니다. 스케일이 작을수록 보수적인 움직임이 되므로, 안전한 보행을 보장합니다.
 
-**Position Control**: Spot은 관절 위치 제어(position control) 방식을 사용한다. 정책이 목표 관절 위치를 출력하면, PhysX의 PD 컨트롤러가 해당 위치로 관절을 구동한다. 이는 ANYmal의 토크 제어(effort control) 방식과 대비된다.
+**Position Control**: Spot은 관절 위치 제어(position control) 방식을 사용합니다. 정책이 목표 관절 위치를 출력하면, PhysX의 PD 컨트롤러가 해당 위치로 관절을 구동합니다. 이는 ANYmal의 토크 제어(effort control) 방식과 대비됩니다.
 
 ### 키보드 제어
 
@@ -149,9 +149,9 @@ self._input_keyboard_mapping = {
 }
 ```
 
-키보드 이벤트는 **additive** 방식으로 동작한다. KEY_PRESS 시 해당 명령이 `_base_command`에 더해지고, KEY_RELEASE 시 빼진다. 따라서 여러 키를 동시에 누르면 명령이 합산되어 대각선 이동이나 회전하며 전진하는 복합 명령이 가능하다.
+키보드 이벤트는 **additive** 방식으로 동작합니다. KEY_PRESS 시 해당 명령이 `_base_command`에 더해지고, KEY_RELEASE 시 빼진다. 따라서 여러 키를 동시에 누르면 명령이 합산되어 대각선 이동이나 회전하며 전진하는 복합 명령이 가능합니다.
 
-명령 크기가 2.0 m/s로 상당히 크므로, 실제 시뮬레이션에서는 정책이 이 범위 전체를 추종하지 못할 수 있다. 학습 시 명령 범위와 일치하는지 확인이 필요하다.
+명령 크기가 2.0 m/s로 상당히 크므로, 실제 시뮬레이션에서는 정책이 이 범위 전체를 추종하지 못할 수 있습니다. 학습 시 명령 범위와 일치하는지 확인이 필요합니다.
 
 ### 물리 설정
 
@@ -164,9 +164,9 @@ self._input_keyboard_mapping = {
 | Ground friction (dynamic) | 0.2 | 지면 동적 마찰 |
 | Ground restitution | 0.01 | 지면 반발 계수 (거의 없음) |
 
-**physics_dt = 1/500**: Spot의 물리 시뮬레이션은 500Hz로 실행된다. 이는 12개 관절을 가진 사족보행 로봇의 빠른 다리 동역학을 정확히 시뮬레이션하기 위함이다. CartPole(1/120)이나 Franka(1/400)보다 높은 주파수를 사용한다.
+**physics_dt = 1/500**: Spot의 물리 시뮬레이션은 500Hz로 실행됩니다. 이는 12개 관절을 가진 사족보행 로봇의 빠른 다리 동역학을 정확히 시뮬레이션하기 위함입니다. CartPole(1/120)이나 Franka(1/400)보다 높은 주파수를 사용합니다.
 
-**rendering_dt = 1/50**: 물리 대비 렌더링은 10배 낮은 주파수로 실행된다. 시각적 업데이트는 50Hz면 충분하며, GPU 리소스를 절약한다.
+**rendering_dt = 1/50**: 물리 대비 렌더링은 10배 낮은 주파수로 실행됩니다. 시각적 업데이트는 50Hz면 충분하며, GPU 리소스를 절약합니다.
 
 ### PolicyController 베이스 클래스
 
@@ -192,9 +192,9 @@ class PolicyController(BaseController):
         # articulation root 속성 설정 (solver iteration, self-collision 등)
 ```
 
-**정책 로딩 경로**: Nucleus 서버(`omni.client.read_file`)에서 `.pt` 파일을 읽어 `torch.jit.load`로 로드한다. 로컬 파일이 아닌 Nucleus 경로를 사용하므로, 동일한 정책을 여러 머신에서 공유할 수 있다.
+**정책 로딩 경로**: Nucleus 서버(`omni.client.read_file`)에서 `.pt` 파일을 읽어 `torch.jit.load`로 로드합니다. 로컬 파일이 아닌 Nucleus 경로를 사용하므로, 동일한 정책을 여러 머신에서 공유할 수 있습니다.
 
-**env YAML**: 정책 학습 시 사용된 환경 설정(decimation, 관절 게인, 리밋 등)을 배포 시에도 동일하게 적용한다. 학습-배포 간 설정 불일치는 정책 실패의 주요 원인이다.
+**env YAML**: 정책 학습 시 사용된 환경 설정(decimation, 관절 게인, 리밋 등)을 배포 시에도 동일하게 적용합니다. 학습-배포 간 설정 불일치는 정책 실패의 주요 원인입니다.
 
 ## 실행 방법
 

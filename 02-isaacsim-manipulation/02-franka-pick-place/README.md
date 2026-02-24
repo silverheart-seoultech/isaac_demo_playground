@@ -1,4 +1,6 @@
 # Franka Open Drawer — RL 정책 기반 서랍 열기
+<!-- TODO: 데모 GIF 추가 — 녹화 가이드는 RECORDING_GUIDE.md 참조 -->
+<!-- ![Demo](assets/demo.gif) -->
 
 ## Overview
 

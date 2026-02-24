@@ -1,4 +1,6 @@
 # Franka Follow Target — RMPflow 기반 End-Effector 추종
+<!-- TODO: 데모 GIF 추가 — 녹화 가이드는 RECORDING_GUIDE.md 참조 -->
+<!-- ![Demo](assets/demo.gif) -->
 
 ## Overview
 

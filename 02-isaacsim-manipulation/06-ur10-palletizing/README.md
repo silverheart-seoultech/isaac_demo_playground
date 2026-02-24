@@ -1,4 +1,6 @@
 # UR10 Bin Filling — Pick-Place + 동적 오브젝트 생성
+<!-- TODO: 데모 GIF 추가 — 녹화 가이드는 RECORDING_GUIDE.md 참조 -->
+<!-- ![Demo](assets/demo.gif) -->
 
 ## Overview
 

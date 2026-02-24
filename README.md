@@ -45,7 +45,16 @@ isaac_sim_demo_playground/
 │   ├── 01-franka-reach/
 │   ├── 02-franka-lift/
 │   └── 03-shadow-hand/
-├── 09-reference/                # 아키텍처, 프레임워크 비교, 트러블슈팅
+├── 09-reference/                # 아키텍처, 프레임워크 비교, 트러블슈팅, 실전 참고자료
+│   ├── architecture.md          # Isaac Sim vs Lab 아키텍처 비교
+│   ├── direct-vs-manager.md     # Direct vs Manager-Based 워크플로우 비교
+│   ├── rl-frameworks.md         # RL 프레임워크 비교 (RSL-RL, SKRL, SB3)
+│   ├── troubleshooting.md       # 트러블슈팅 가이드
+│   ├── physics-timing.md        # 물리 타이밍 구조 (dt, decimation, render_interval)
+│   ├── coordinate-systems.md    # 좌표계, 쿼터니언 컨벤션
+│   ├── cli-reference.md         # CLI 명령어 빠른 참조
+│   ├── common-gotchas.md        # 자주 빠지는 함정
+│   └── debugging-guide.md       # 디버깅 가이드 (NaN, TensorBoard, PhysX)
 ├── SETUP.md                     # 환경 구축 가이드
 └── README.md                    # 이 파일
 ```
@@ -159,7 +168,7 @@ cd ~/workspace/IsaacLab
 `07-isaaclab-locomotion/` + `08-isaaclab-manipulation/` → 실제 로봇(ANYmal, H1, Go2, Franka, Shadow Hand) 환경에서 학습 파이프라인을 분석합니다.
 
 ### 부록
-`09-reference/` → Isaac Sim vs Lab 아키텍처, Direct vs Manager 비교, RL 프레임워크(RSL-RL/SKRL/SB3) 비교, 공통 트러블슈팅.
+`09-reference/` → Isaac Sim vs Lab 아키텍처, Direct vs Manager 비교, RL 프레임워크(RSL-RL/SKRL/SB3) 비교, 트러블슈팅에 더하여 물리 타이밍 구조, 좌표계/쿼터니언 컨벤션, CLI 명령어 참조, 자주 빠지는 함정(모듈 리네임, 임포트 순서, GPU 버퍼), 디버깅 가이드(NaN 폭발, TensorBoard, PhysX 버퍼)를 포함합니다.
 
 ## 소스 코드 위치
 

@@ -7,6 +7,7 @@ Isaac 생태계의 물리 시뮬레이션, 로봇 제어, 강화학습 파이프
 
 ```
 isaac_sim_demo_playground/
+├── 00-introduction/             # Isaac Sim/Lab 소개, 설치 및 환경 설정 가이드
 ├── 01-isaacsim-basics/          # Isaac Sim 기초 — 씬 구성, USD 로딩, OmniGraph
 │   ├── 01-hello-world/
 │   ├── 02-getting-started/
@@ -152,7 +153,11 @@ cd ~/workspace/IsaacLab
 
 ## 학습 로드맵
 
+### Phase 0: 소개 및 환경 설정
+`00-introduction/` → Isaac Sim/Lab 생태계 개요, 시스템 요구사항, 설치 방법, 첫 실행 테스트, 핵심 개념 미리보기를 다룹니다.
+
 ### Phase 1: Isaac Sim 기초 이해
+`01-isaacsim-basics/` → USD 씬 구조, PhysX 물리 설정, Articulation API, OmniGraph를 익힙니다.
 `01-isaacsim-basics/` → USD 씬 구조, PhysX 물리 설정, Articulation API, OmniGraph를 익힙니다.
 
 ### Phase 2: 로봇 제어 패턴

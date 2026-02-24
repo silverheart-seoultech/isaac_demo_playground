@@ -225,7 +225,7 @@ CCD(Continuous Collision Detection)를 활성화하면 빠르게 이동하는 �
 
 4. **Episode length**: 에피소드가 너무 짧으면 policy가 의미 있는 행동을 학습할 시간이 부족합니다.
 
-5. **Num_envs**: 환경 수가 너무 적으면 gradient 추정이 noisy합니다. PPO 계열 알고리즘에서는 최소 1024~2048개를 권장합니다.
+5. **Num_envs**: 환경 수가 너무 적으면 gradient 추정이 noisy합니다. PPO 계열 알고리즘에서는 최소 1024–2048개를 권장합니다.
 
 6. **학습률**: RSL-RL 기본값은 1e-3입니다. 복잡한 환경에서는 3e-4 ~ 1e-4로 줄여볼 수 있습니다.
 

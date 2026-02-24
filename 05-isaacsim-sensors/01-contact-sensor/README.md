@@ -98,7 +98,7 @@ ContactSensor(
 )
 ```
 
-Kit Command는 USD stage에 직접 prim을 생성하는 저수준 방식이고, Python API(`ContactSensor` 클래스)는 이를 래핑한 고수준 인터페이스다. Standalone 스크립트에서는 Python API가 더 적합합니다.
+Kit Command는 USD stage에 직접 prim을 생성하는 저수준 방식이고, Python API(`ContactSensor` 클래스)는 이를 래핑한 고수준 인터페이스입니다. Standalone 스크립트에서는 Python API가 더 적합합니다.
 
 ### 센서 파라미터
 

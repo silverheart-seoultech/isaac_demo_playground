@@ -6,8 +6,8 @@ Isaac Sim과 Isaac Lab 데모를 실행하기 위한 환경 설정 및 검증 �
 
 - **OS**: Ubuntu 20.04 / 22.04
 - **GPU**: NVIDIA RTX 30xx 이상 (VRAM 8GB+, 권장 16GB+)
-- **Driver**: NVIDIA Driver 525.60+ (Isaac Sim 호환)
-- **Python**: 3.10 (Isaac Sim/Lab 호환 버전)
+- **Driver**: NVIDIA Driver 580.65.06+ (Isaac Sim 5.x 기준)
+- **Python**: 3.11 (Isaac Sim 5.x), 3.10 (Isaac Sim 4.x)
 - **Conda**: Anaconda 또는 Miniconda
 
 ## 1. conda 환경 확인

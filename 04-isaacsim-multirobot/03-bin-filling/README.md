@@ -104,7 +104,7 @@ Controller의 pick-place 시퀀스가 완전히 끝나면 시뮬레이션을 정
 | 오브젝트 관리 | 씬 초기화 시 고정 | 런타임에 동적 추가 |
 | 실행 모드 | 연속 (모든 큐브 스택) | 단발 (1회 pick-place + screw 추가) |
 
-**PickPlaceController vs StackingController**: StackingController는 내부에 picking_position/placing_position을 자동으로 계산하지만, PickPlaceController는 외부에서 매 스텝 전달받는다. 이 인터페이스 차이 때문에 BinFilling에서는 observation에서 직접 position을 추출하여 전달합니다.
+**PickPlaceController vs StackingController**: StackingController는 내부에 picking_position/placing_position을 자동으로 계산하지만, PickPlaceController는 외부에서 매 스텝 전달받습니다. 이 인터페이스 차이 때문에 BinFilling에서는 observation에서 직접 position을 추출하여 전달합니다.
 
 ## 실행 방법
 

@@ -2,21 +2,11 @@
 
 ## 생태계 계층 구조
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                       Isaac Lab                              │
-│  RL 학습 프레임워크 — Direct/Manager-Based 환경 패러다임       │
-│  RSL-RL, SKRL, RL Games, Stable Baselines3, Ray RLlib 지원   │
-├─────────────────────────────────────────────────────────────┤
-│                      Isaac Sim                               │
-│  Omniverse 기반 물리 시뮬레이션 엔진                          │
-│  PhysX 5 GPU, USD 씬, Articulation API, Sensor API          │
-├─────────────────────────────────────────────────────────────┤
-│                    Omniverse Kit                             │
-│  Extension 시스템, OmniGraph, Nucleus Asset Server            │
-│  Hydra Renderer, USD Composer, Replicator                    │
-└─────────────────────────────────────────────────────────────┘
-```
+| 계층 | 역할 |
+|---|---|
+| **Isaac Lab** | RL 학습 프레임워크 — Direct/Manager-Based 환경 패러다임, RSL-RL, SKRL, RL Games, Stable Baselines3, Ray RLlib 지원 |
+| **Isaac Sim** | Omniverse 기반 물리 시뮬레이션 엔진 — PhysX 5 GPU, USD 씬, Articulation API, Sensor API |
+| **Omniverse Kit** | Extension 시스템, OmniGraph, Nucleus Asset Server, Hydra Renderer, USD Composer, Replicator |
 
 ## Isaac Sim — 물리 시뮬레이션 엔진
 

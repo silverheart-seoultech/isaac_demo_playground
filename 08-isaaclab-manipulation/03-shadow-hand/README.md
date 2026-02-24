@@ -111,7 +111,7 @@ success_tolerance = 0.1        # 목표 도달 판정 (rad)
 | action_penalty | -0.0002 | 과도한 관절 움직임 억제 |
 | fall_penalty | 0 / -50 | OpenAI mode에서만 활성 |
 
-**reach_goal_bonus(250)**가 다른 모든 reward를 압도하는 sparse reward다. 정책은 연속적인 rotation tracking + distance penalty로 점진적으로 학습하다가, 목표 도달 시 큰 bonus를 받아 성공 행동을 강화합니다.
+**reach_goal_bonus(250)**가 다른 모든 reward를 압도하는 sparse reward입니다. 정책은 연속적인 rotation tracking + distance penalty로 점진적으로 학습하다가, 목표 도달 시 큰 bonus를 받아 성공 행동을 강화합니다.
 
 ### Domain Randomization — 가장 광범위한 설정
 
@@ -135,12 +135,12 @@ reset_gravity:              z축 ±0.4 gaussian, 36초 간격    # 중력 변동
 
 | Randomization | 분포 | 범위 | 적용 시점 |
 |---|---|---|---|
-| 마찰 계수 | Uniform | 0.7~1.3 | Reset (720스텝 간격) |
-| 관절 강성 | **Log-uniform** | 0.75~1.5× | Reset |
-| 관절 감쇠 | **Log-uniform** | 0.3~3.0× | Reset |
+| 마찰 계수 | Uniform | 0.7–1.3 | Reset (720스텝 간격) |
+| 관절 강성 | **Log-uniform** | 0.75–1.5× | Reset |
+| 관절 감쇠 | **Log-uniform** | 0.3–3.0× | Reset |
 | 관절 한계 | Gaussian | ±0.01 rad | Reset |
-| 건(tendon) 특성 | Log-uniform | 0.75~1.5× / 0.3~3.0× | Reset |
-| 물체 질량 | Uniform | 0.5~1.5× | Reset |
+| 건(tendon) 특성 | Log-uniform | 0.75–1.5× / 0.3–3.0× | Reset |
+| 물체 질량 | Uniform | 0.5–1.5× | Reset |
 | 중력 | Gaussian | z축 ±0.4 | 36초 간격 |
 
 **Log-uniform 분포**: 관절 강성과 감쇠에 log-uniform을 사용하는 이유는 물리 파라미터가 로그 스케일에서 더 균일하게 분포하기 때문입니다. 예를 들어, 강성이 1→2로 바뀌는 것과 0.5→1로 바뀌는 것은 동역학에 동일한 영향을 미칩니다.

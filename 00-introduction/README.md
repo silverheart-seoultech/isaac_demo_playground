@@ -4,24 +4,11 @@
 
 NVIDIA Isaac은 로봇 시뮬레이션과 AI 학습을 위한 통합 플랫폼입니다. 세 계층으로 구성되며, 각 계층이 하위 계층의 기능을 확장합니다.
 
-```
-┌──────────────────────────────────────────────────────────────┐
-│                         Isaac Lab                            │
-│  강화학습 프레임워크                                            │
-│  Direct / Manager-Based 환경, RSL-RL / SKRL / SB3 통합        │
-│  수천 개 환경 GPU 병렬 실행, 자동 Domain Randomization           │
-├──────────────────────────────────────────────────────────────┤
-│                         Isaac Sim                            │
-│  물리 시뮬레이션 엔진                                           │
-│  PhysX 5 GPU 가속, USD 씬 포맷, Articulation / Sensor API     │
-│  Extension 시스템, Interactive 데모, Standalone 스크립트          │
-├──────────────────────────────────────────────────────────────┤
-│                       Omniverse Kit                          │
-│  기반 플랫폼                                                   │
-│  Hydra Renderer, USD Composer, Nucleus Asset Server           │
-│  Extension Framework, OmniGraph                               │
-└──────────────────────────────────────────────────────────────┘
-```
+| 계층 | 역할 |
+|---|---|
+| **Isaac Lab** | 강화학습 프레임워크 — Direct / Manager-Based 환경, RSL-RL / SKRL / SB3 통합, 수천 개 환경 GPU 병렬 실행, 자동 Domain Randomization |
+| **Isaac Sim** | 물리 시뮬레이션 엔진 — PhysX 5 GPU 가속, USD 씬 포맷, Articulation / Sensor API, Extension 시스템, Interactive 데모, Standalone 스크립트 |
+| **Omniverse Kit** | 기반 플랫폼 — Hydra Renderer, USD Composer, Nucleus Asset Server, Extension Framework, OmniGraph |
 
 ### Isaac Sim
 
@@ -84,7 +71,7 @@ Isaac Lab과 Isaac Sim의 버전은 반드시 호환되는 조합을 사용해�
 | Isaac Lab | Isaac Sim | Python | PyTorch | NVIDIA Driver (Linux) |
 |---|---|---|---|---|
 | 2.3.x | 5.1.0 | 3.11 | 2.7.0 (CUDA 12.8) | 580.65.06+ |
-| 2.1.x ~ 2.2.x | 4.5.0 | 3.10 | 2.4.x (CUDA 12.1) | 535.x+ |
+| 2.1.x – 2.2.x | 4.5.0 | 3.10 | 2.4.x (CUDA 12.1) | 535.x+ |
 | 1.x (Orbit) | 4.2.0 | 3.10 | 2.2.x (CUDA 12.1) | 535.x+ |
 
 > **주의**: Isaac Lab의 `main` 브랜치는 최신 Isaac Sim을 타겟으로 합니다. 특정 Isaac Sim 버전에 맞는 브랜치(예: `v2.3.0`)를 사용하는 것이 안전합니다.
@@ -129,11 +116,11 @@ cd ${ISAACSIM_PATH}
 # Isaac Sim Python 환경 테스트
 ./python.sh -c "from isaacsim import SimulationApp; print('Isaac Sim OK')"
 
-# GUI 실행 테스트 (첫 실행 시 셰이더 컴파일로 20~60분 소요 가능)
+# GUI 실행 테스트 (첫 실행 시 셰이더 컴파일로 20–60분 소요 가능)
 ./isaac-sim.sh
 ```
 
-> **참고**: 첫 실행 시 Isaac Sim은 Extension 에셋과 셰이더를 다운로드/컴파일합니다. 네트워크 환경에 따라 10~30분 소요될 수 있으며, 이후 실행은 빠르게 로딩됩니다.
+> **참고**: 첫 실행 시 Isaac Sim은 Extension 에셋과 셰이더를 다운로드/컴파일합니다. 네트워크 환경에 따라 10–30분 소요될 수 있으며, 이후 실행은 빠르게 로드됩니다.
 
 > **참고**: 첫 실행 시 EULA(최종 사용자 라이선스 동의) 팝업이 나타날 수 있습니다. CLI 환경에서는 `--accept-eula` 플래그를 추가하거나, `~/.nvidia-omniverse/config/privacy.toml` 파일에서 사전 동의를 설정할 수 있습니다.
 
@@ -337,9 +324,9 @@ CartPole이 균형을 잡는 모습이 보이면 전체 환경이 정상입니�
 
 | 방식 | 사용 섹션 | 특징 |
 |---|---|---|
-| Isaac Sim GUI | 01~05 | `isaac-sim.sh`로 GUI 실행 후 메뉴에서 데모 선택 |
+| Isaac Sim GUI | 01–05 | `isaac-sim.sh`로 GUI 실행 후 메뉴에서 데모 선택 |
 | Isaac Sim Standalone | 일부 03, 05 | Python 스크립트로 headless/GUI 실행 |
-| Isaac Lab CLI | 06~08 | `isaaclab.sh -p train.py --task ...`로 학습/평가 |
+| Isaac Lab CLI | 06–08 | `isaaclab.sh -p train.py --task ...`로 학습/평가 |
 
 ### Direct vs Manager-Based
 
@@ -384,7 +371,7 @@ Isaac Lab의 시뮬레이션 루프는 세 가지 시간 스케일로 구성됩�
 09-reference                # 아키텍처, CLI, 타이밍, 디버깅 (수시 참조)
 ```
 
-01~05 섹션은 Isaac Sim의 물리 시뮬레이션과 로봇 제어 기초를 다루고, 06~08 섹션은 Isaac Lab의 RL 학습 파이프라인을 다룹니다. 09-reference는 특정 주제에 대한 깊은 참조 자료로, 필요할 때 수시로 참조합니다.
+01–05 섹션은 Isaac Sim의 물리 시뮬레이션과 로봇 제어 기초를 다루고, 06–08 섹션은 Isaac Lab의 RL 학습 파이프라인을 다룹니다. 09-reference는 특정 주제에 대한 깊은 참조 자료로, 필요할 때 수시로 참조합니다.
 
 ## 9. 유용한 링크
 

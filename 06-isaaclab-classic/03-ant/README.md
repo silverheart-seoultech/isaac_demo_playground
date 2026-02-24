@@ -24,7 +24,7 @@ DirectRLEnv
                             └── Config 오버라이드: 관절 수, 기어비, 에피소드 길이
 ```
 
-`LocomotionEnv`는 Ant와 Humanoid가 공유하는 보행 환경 베이스 클래스다. Heading/up projection 계산, potential-based progress reward, 관절 제한 체크 등 보행 공통 로직을 구현합니다.
+`LocomotionEnv`는 Ant와 Humanoid가 공유하는 보행 환경 베이스 클래스입니다. Heading/up projection 계산, potential-based progress reward, 관절 제한 체크 등 보행 공통 로직을 구현합니다.
 
 ## Source Files
 

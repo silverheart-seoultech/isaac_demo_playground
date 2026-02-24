@@ -69,7 +69,7 @@ for i in range(100):
 kit.close()            # GPU/메모리 리소스 해제
 ```
 
-`SimulationApp`은 Omniverse Kit 런타임의 Python wrapper다. `config` 딕셔너리의 `"headless": True`로 설정하면 GUI 없이 실행되어 서버 환경에서의 데이터 생성에 활용됩니다. `update()`는 blocking 호출이며, 반환 후 다음 프레임이 렌더링 가능한 상태가 됩니다.
+`SimulationApp`은 Omniverse Kit 런타임의 Python wrapper입니다. `config` 딕셔너리의 `"headless": True`로 설정하면 GUI 없이 실행되어 서버 환경에서의 데이터 생성에 활용됩니다. `update()`는 blocking 호출이며, 반환 후 다음 프레임이 렌더링 가능한 상태가 됩니다.
 
 ### Interactive: BaseSample 템플릿 메서드
 

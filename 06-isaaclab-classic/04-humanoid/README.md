@@ -17,7 +17,7 @@ Ant와 동일한 `LocomotionEnv` 상속 구조를 따릅니다. 차이점은 Con
 | DOF | 8 | 21 |
 | Observation | 36D | 75D |
 | Action | 8D | 21D |
-| Gear Ratios | 동일 (15×8) | 관절별 상이 (22.5~135) |
+| Gear Ratios | 동일 (15×8) | 관절별 상이 (22.5–135) |
 | 종료 높이 | < 0.31m | < 0.8m |
 | 초기 높이 | 0.5m | 1.34m |
 

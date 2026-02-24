@@ -133,7 +133,7 @@ def __post_init__(self):
     self.events.reset_base.params["velocity_range"] = all zeros           # 정지 상태 시작
 ```
 
-이족보행의 불안정성 때문에 domain randomization을 대폭 줄였다. 질량/CoM 랜덤화와 push를 비활성화하고, 초기 자세를 default 그대로(1.0배), 초기 속도를 0으로 설정합니다. 이는 학습 초기에 안정적인 standing부터 학습할 수 있게 합니다.
+이족보행의 불안정성 때문에 domain randomization을 대폭 줄였습니다. 질량/CoM 랜덤화와 push를 비활성화하고, 초기 자세를 default 그대로(1.0배), 초기 속도를 0으로 설정합니다. 이는 학습 초기에 안정적인 standing부터 학습할 수 있게 합니다.
 
 ### Command 범위 제한
 

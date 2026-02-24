@@ -76,7 +76,7 @@ def setup_scene(self):
 
 **`CortexFranka`**: 일반 `Franka`와 달리, Cortex 전용 래퍼로 `register_obstacle()`을 통해 조작/회피 대상을 등록할 수 있습니다.
 
-**큐브 배치**: 0.3m ~ 0.7m 범위에서 등간격으로 4개 큐브를 배치합니다. 크기 5.15cm의 DynamicCuboid로, 물리적으로 잡고 이동할 수 있습니다.
+**큐브 배치**: 0.3m – 0.7m 범위에서 등간격으로 4개 큐브를 배치합니다. 크기 5.15cm의 DynamicCuboid로, 물리적으로 잡고 이동할 수 있습니다.
 
 ### 의사결정 모니터링
 

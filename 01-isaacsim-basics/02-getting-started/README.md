@@ -122,7 +122,7 @@ python standalone_examples/tutorials/getting_started.py
 
 ### GroundPlane의 역할
 
-`add_default_ground_plane()`은 무한 평면 충돌체를 추가합니다. 이 평면은 `PhysicsGroundPlane`으로 구현되며, 렌더링되지 않는 충돌 전용 오브젝트다. 시각적 바닥은 별도의 Mesh로 추가해야 합니다.
+`add_default_ground_plane()`은 무한 평면 충돌체를 추가합니다. 이 평면은 `PhysicsGroundPlane`으로 구현되며, 렌더링되지 않는 충돌 전용 오브젝트입니다. 시각적 바닥은 별도의 Mesh로 추가해야 합니다.
 
 ### 물리 스텝과 렌더링 분리
 

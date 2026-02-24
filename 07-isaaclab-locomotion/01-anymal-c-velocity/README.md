@@ -171,7 +171,7 @@ class CurriculumCfg:
     terrain_levels = CurrTerm(func=mdp.terrain_levels_vel)
 ```
 
-`terrain_levels_vel`은 로봇의 velocity tracking 성능에 따라 terrain 난이도를 자동 조절합니다. 추적 오차가 작으면 더 어려운 terrain으로 이동하고, 크면 쉬운 terrain으로 되돌린다. 이 curriculum은 `ROUGH_TERRAINS_CFG`의 terrain generator와 연동되어, boxes/stairs/random_rough 등 다양한 sub-terrain에서 점진적으로 학습합니다.
+`terrain_levels_vel`은 로봇의 velocity tracking 성능에 따라 terrain 난이도를 자동 조절합니다. 추적 오차가 작으면 더 어려운 terrain으로 이동하고, 크면 쉬운 terrain으로 되돌립니다. 이 curriculum은 `ROUGH_TERRAINS_CFG`의 terrain generator와 연동되어, boxes/stairs/random_rough 등 다양한 sub-terrain에서 점진적으로 학습합니다.
 
 ### Height Scanner 설정
 

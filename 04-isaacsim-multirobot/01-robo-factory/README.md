@@ -91,7 +91,7 @@ NEXT: 다음 큐브 선택 → PICK으로 복귀
 
 ### 02-isaacsim-manipulation/05-simple-stack과의 관계
 
-`05-simple-stack/`은 이 RoboFactory의 단일-Task 버전이 아니라, **동일한 코드**다. 차이점은 분석 관점:
+`05-simple-stack/`은 이 RoboFactory의 단일-Task 버전이 아니라, **동일한 코드**입니다. 차이점은 분석 관점:
 
 - `05-simple-stack/`: StackingController의 pick-place 상태 머신 자체에 초점
 - `01-robo-factory/`: 다중 Task 병렬화 패턴에 초점

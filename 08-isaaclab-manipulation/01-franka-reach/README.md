@@ -75,9 +75,9 @@ class PolicyCfg(ObsGroup):
 | `joint_pos` | 9 | Franka 7 관절 + 2 finger (default 기준 상대값) |
 | `joint_vel` | 9 | 관절 속도 |
 | `pose_command` | 7 | 목표 ee pose (pos 3 + quat 4) |
-| `actions` | 7~9 | 이전 action (variant에 따라 차원 상이) |
+| `actions` | 7–9 | 이전 action (variant에 따라 차원 상이) |
 
-Locomotion 대비 observation이 매우 단순합니다(32~34D). Reaching은 로봇 자체의 상태와 목표만 알면 되므로 지형 정보나 접촉 센서가 불필요합니다.
+Locomotion 대비 observation이 매우 단순합니다(32–34D). Reaching은 로봇 자체의 상태와 목표만 알면 되므로 지형 정보나 접촉 센서가 불필요합니다.
 
 ### Reward Decomposition
 

@@ -64,19 +64,11 @@ isaac_sim_demo_playground/
 
 Isaac 생태계는 세 계층으로 구성됩니다:
 
-```
-┌─────────────────────────────────────────────────────┐
-│                    Isaac Lab                         │
-│  RL 학습 프레임워크 (Direct / Manager-Based Env)      │
-│  RSL-RL, SKRL, RL Games, SB3, Ray RLlib 지원        │
-├─────────────────────────────────────────────────────┤
-│                   Isaac Sim                          │
-│  Omniverse 기반 물리 시뮬레이션 엔진                   │
-│  PhysX 5, GPU-accelerated, USD 씬 포맷               │
-├─────────────────────────────────────────────────────┤
-│                  Omniverse Kit                       │
-│  Extension 시스템, OmniGraph, Nucleus Asset Server    │
-└─────────────────────────────────────────────────────┘
+| 계층 | 역할 |
+|---|---|
+| **Isaac Lab** | RL 학습 프레임워크 (Direct / Manager-Based Env), RSL-RL, SKRL, RL Games, SB3, Ray RLlib 지원 |
+| **Isaac Sim** | Omniverse 기반 물리 시뮬레이션 엔진, PhysX 5 GPU-accelerated, USD 씬 포맷 |
+| **Omniverse Kit** | Extension 시스템, OmniGraph, Nucleus Asset Server |
 ```
 
 **Isaac Sim**은 PhysX 5 기반의 GPU 가속 물리 시뮬레이션을 제공합니다. USD(Universal Scene Description) 포맷으로 씬을 관리하며, Extension 시스템으로 기능을 모듈화합니다. GUI 모드에서 인터랙티브 데모를 실행하거나, Standalone 스크립트로 headless 실행이 가능합니다.
@@ -91,7 +83,7 @@ Isaac 생태계는 세 계층으로 구성됩니다:
 
 ### 1. Isaac Sim GUI (Interactive Demo)
 
-GUI 앱을 실행한 후 메뉴에서 데모를 선택합니다. `01~05` 섹션의 대부분이 이 방식입니다.
+GUI 앱을 실행한 후 메뉴에서 데모를 선택합니다. `01–05` 섹션의 대부분이 이 방식입니다.
 
 ```bash
 # Isaac Sim GUI 실행 (interactive examples 활성화)
@@ -114,7 +106,7 @@ python standalone_examples/api/isaacsim.robot.manipulators.examples/franka/follo
 
 ### 3. Isaac Lab CLI
 
-Isaac Lab의 `isaaclab.sh` wrapper를 통해 학습/평가를 실행합니다. `06~08` 섹션이 이 방식입니다.
+Isaac Lab의 `isaaclab.sh` wrapper를 통해 학습/평가를 실행합니다. `06–08` 섹션이 이 방식입니다.
 
 ```bash
 cd ~/workspace/IsaacLab

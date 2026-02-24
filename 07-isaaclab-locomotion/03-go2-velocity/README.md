@@ -72,7 +72,7 @@ self.scene.terrain.terrain_generator.sub_terrains["random_rough"].noise_range = 
 self.scene.terrain.terrain_generator.sub_terrains["random_rough"].noise_step = 0.01
 ```
 
-Go2의 다리 길이는 ANYmal-C의 약 절반입니다. 같은 높이의 장애물이라도 Go2에게는 상대적으로 2배 어려운 셈입니다. boxes의 최대 높이를 0.1m로 제한하고, random_rough의 노이즈를 0.01~0.06m로 줄여 체격에 비례한 난이도를 유지합니다.
+Go2의 다리 길이는 ANYmal-C의 약 절반입니다. 같은 높이의 장애물이라도 Go2에게는 상대적으로 2배 어려운 셈입니다. boxes의 최대 높이를 0.1m으로 제한하고, random_rough의 노이즈를 0.01–0.06m으로 줄여 체격에 비례한 난이도를 유지합니다.
 
 ### Action Scale 축소
 

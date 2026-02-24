@@ -87,10 +87,10 @@ control_dt = physics_dt × decimation
 | decimation | control_dt (dt=1/120 기준) | 특성 |
 |---|---|---|
 | 1 | 8.33 ms | 매 physics step마다 action 갱신. 반응 빠르지만 고주파 노이즈에 취약 |
-| 2~4 | 16.7~33.3 ms | 일반적인 로봇 제어 주기와 유사. 대부분의 태스크에 적합 |
+| 2–4 | 16.7–33.3 ms | 일반적인 로봇 제어 주기와 유사. 대부분의 태스크에 적합 |
 | 10+ | 83.3+ ms | 느린 policy 주기. 고수준 의사결정 태스크에 사용 |
 
-실제 로봇의 제어 주기(보통 50~500 Hz)와 맞추려면 `physics_dt`와 `decimation`의 곱이 해당 주기의 역수가 되도록 설정합니다. 예를 들어, 실제 로봇이 200 Hz로 제어된다면 control_dt = 5 ms가 되어야 하므로, `dt=1/1000, decimation=5` 또는 `dt=1/200, decimation=1` 등으로 설정합니다.
+실제 로봇의 제어 주기(보통 50–500 Hz)와 맞추려면 `physics_dt`와 `decimation`의 곱이 해당 주기의 역수가 되도록 설정합니다. 예를 들어, 실제 로봇이 200 Hz로 제어된다면 control_dt = 5 ms가 되어야 하므로, `dt=1/1000, decimation=5` 또는 `dt=1/200, decimation=1` 등으로 설정합니다.
 
 ## render_interval
 
